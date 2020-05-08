@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+    <data>
+
+        <record id="csv_export_partner_view" model="ir.ui.view">
+            <field name="name">Partner CSV Export</field>
+            <field name="model">csv.export.partner</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Export Partner CSV">
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="filename"/>
+                    </group>
+                    <separator string="Report" colspan="4"/>
+                    <group colspan="4">
+                        <field name="data" filename="filename"/>
+                    </group>
+                    <footer>
+                        <button name="action_manual_export_base"
+                                string="Generate Partner CSV" type="object"
+                                icon="gtk-execute" class="oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_csv_export_partner" model="ir.actions.act_window">
+            <field name="name">Export Partner CSV</field>
+            <field name="res_model">csv.export.partner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="csv_export_partner_view"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_csv_export_partner"
+                name="Export Partner CSV"
+                action="action_csv_export_partner"
+                parent="csv_export_base.menu_csv_export_base"
+                sequence="220"
+        />
+    </data>
+</openerp>
