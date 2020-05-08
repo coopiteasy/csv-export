@@ -22,7 +22,7 @@
                         <field name="data" filename="filename"/>
                     </group>
                     <footer>
-                        <button name="action_manual_export_invoice"
+                        <button name="action_manual_export_base"
                                 string="Generate Invoice CSV" type="object"
                                 icon="gtk-execute" class="oe_highlight"/>
                     </footer>
@@ -46,7 +46,7 @@
                 id="menu_csv_export_invoice"
                 name="Export Invoice CSV"
                 action="action_csv_export_invoice"
-                parent="account.menu_finance_reports"
+                parent="csv_export_base.menu_csv_export_base"
                 sequence="210"
         />
     </data>
