@@ -3,13 +3,13 @@
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "Export Invoice CSV",
+    "name": "Export CSV Base",
     "version": "9.0.1.0.0",
-    "depends": ["account", "csv_export_base"],
+    "depends": [],
     "author": "Coop IT Easy SCRLfs",
-    "summary": "Export your invoices as CSV flat files",
+    "summary": "Base to create module to export csv files.",
     "website": "http://www.coopiteasy.be",
     "license": "AGPL-3",
-    "data": ["views/export_csv_invoice.xml"],
+    "data": ["views/menu.xml"],
     "installable": True,
 }
