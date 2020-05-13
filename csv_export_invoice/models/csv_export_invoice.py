@@ -12,7 +12,7 @@ HEADERS = (
     "Datefact",
     "DateEch",
     "RefCli",
-    # "CommStruc",
+    "CommStruc",
     "Remarque",
     "MtTTC",
     "CompteGen",
@@ -51,6 +51,11 @@ class InvoiceCSVExport(models.TransientModel):
         line = record
         invoice = line.invoice_id
 
+        if invoice.reference_type == "bba":
+            reference = invoice.reference
+        else:
+            reference = ""
+
         tax = line.invoice_line_tax_ids
         if len(tax) > 1:
             raise ValidationError(
@@ -76,7 +81,7 @@ class InvoiceCSVExport(models.TransientModel):
             invoice.date_invoice,
             invoice.date_due,
             invoice.partner_id.name,
-            # CommStruc
+            reference,
             invoice.origin,
             line.price_subtotal,
             line.account_id.code,
