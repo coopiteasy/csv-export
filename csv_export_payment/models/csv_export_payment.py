@@ -5,7 +5,14 @@
 
 from openerp import models
 
-HEADERS = ("Ref", "JouFin", "Date", "RefCli", "Facture", "Montant")
+HEADERS = (
+    "reference",
+    "journal",
+    "date",
+    "customer_reference",
+    "invoice",
+    "amount",
+)
 
 
 class PartnerCSVExport(models.TransientModel):

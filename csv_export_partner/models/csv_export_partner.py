@@ -7,22 +7,22 @@ from openerp import _, models
 from openerp.exceptions import ValidationError
 
 HEADERS = (
-    "RefCli",
-    "Nom1",
-    "Nom2",
-    "Adresse1",
-    "Adresse2",
-    "CP",
-    "Local",
-    "Langue",
-    "Mobile",
-    "Tel",
-    "Fax",
-    "CatTva",
-    "Tva",
-    "Iban",
-    "Email",
-    "Delpai",
+    "reference",
+    "name",
+    "company",
+    "street_1",
+    "street_2",
+    "zip_code",
+    "city",
+    "lang",
+    "mobile",
+    "phone",
+    "fax",
+    "vat_category",
+    "vat_number",
+    "iban",
+    "email",
+    "payment_term",
 )
 
 _LANG_MAP = {"fr_BE": "FR", "nl_BE": "NL", "en_US": "EN"}
