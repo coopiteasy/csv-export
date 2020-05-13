@@ -7,25 +7,25 @@ from openerp import _, models
 from openerp.exceptions import ValidationError
 
 HEADERS = (
-    "Journal",
-    "Document",
-    "Datefact",
-    "DateEch",
-    "RefCli",
-    "CommStruc",
-    "Remarque",
-    "MtTTC",
-    "CompteGen",
-    "MtBase",
-    "CodeTva",
-    "MtTva",
-    "RemarqueLigne",
-    "ANA1",
-    "ANA2",
-    "ANA3",
-    "ANA4",
-    "ANA5",
-    "ANA6",
+    "journal",
+    "reference",
+    "date_invoice",
+    "date_due",
+    "partner_reference",
+    "structured_communication",
+    "comment",
+    "total_amount",
+    "account",
+    "base_amount",
+    "vat_code",
+    "vat_amount",
+    "line_comment",
+    "ana1",
+    "ana2",
+    "ana3",
+    "ana4",
+    "ana5",
+    "ana6",
 )
 
 
@@ -77,7 +77,7 @@ class InvoiceCSVExport(models.TransientModel):
 
         row = (
             invoice.journal_id.code,
-            invoice.number,  # todo change sequence
+            invoice.number,
             invoice.date_invoice,
             invoice.date_due,
             invoice.partner_id.name,
