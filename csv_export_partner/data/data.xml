@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+    <data noupdate="1">
+        <record id="partner_export_reference_sequence" model="ir.sequence">
+            <field name="name">Partner Export Reference</field>
+            <field name="code">res.partner.export.reference</field>
+        </record>
+    </data>
+</openerp>
