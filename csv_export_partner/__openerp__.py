@@ -10,6 +10,11 @@
     "summary": "Export your partners as CSV flat files",
     "website": "http://www.coopiteasy.be",
     "license": "AGPL-3",
-    "data": ["views/export_csv_partner.xml"],
+    "data": [
+        "data/data.xml",
+        "views/res_partner.xml",
+        "views/export_csv_partner.xml",
+    ],
     "installable": True,
+    "post_init_hook": "set_default_export_reference",
 }
