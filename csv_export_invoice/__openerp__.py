@@ -10,6 +10,12 @@
     "summary": "Export your invoices as CSV flat files",
     "website": "http://www.coopiteasy.be",
     "license": "AGPL-3",
-    "data": ["views/account_tax.xml", "views/export_csv_invoice.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/account_tax.xml",
+        "views/export_csv_invoice.xml",
+        "views/backend_sftp.xml",
+        "views/menu.xml",
+    ],
     "installable": True,
 }

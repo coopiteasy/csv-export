@@ -13,7 +13,7 @@ _logger = logging.getLogger(__name__)
 class TestCSVExport(common.TransactionCase):
     def test_get_rows(self):
         ICE = self.env["csv.export.invoice"]
-        invoice = self.env["account.invoice"].browse(76)  # use demo data
+        invoice = self.env["account.invoice"].browse(2)  # use demo data
         rows = ICE.get_rows(invoice)
         for row in rows:
             _logger.info(row)
@@ -24,3 +24,4 @@ class TestCSVExport(common.TransactionCase):
         )
         # invoice = self.env["account.invoice"].browse(1)
         ice.action_manual_export_base()
+        ice.action_send_to_backend_base()
