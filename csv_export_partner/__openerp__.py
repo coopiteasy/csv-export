@@ -14,6 +14,8 @@
         "data/data.xml",
         "views/res_partner.xml",
         "views/export_csv_partner.xml",
+        "views/backend_sftp.xml",
+        "views/menu.xml",
     ],
     "installable": True,
     "post_init_hook": "set_default_export_reference",

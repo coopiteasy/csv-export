@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+    <record id="backend_sftp_partner_view_tree" model="ir.ui.view">
+        <field name="name">backend_sftp_partner_view_tree</field>
+        <field name="model">backend.sftp.partner</field>
+        <field name="arch" type="xml">
+            <tree name="backend_sftp_partner_tree"
+                  string="Backend Configuration">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="backend_sftp_partner_view_form" model="ir.ui.view">
+        <field name="name">backend_sftp_partner_view_form</field>
+        <field name="model">backend.sftp.partner</field>
+        <field name="arch" type="xml">
+            <form string="backend_sftp_partner_form">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "active"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="username"/>
+                        <field name="host"/>
+                        <field name="port"/>
+                        <field name="path"/>
+                        <field name="auth_method"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="backend_sftp_partner_search_view" model="ir.ui.view">
+        <field name="name">backend_sftp_partner_search_view</field>
+        <field name="model">backend.sftp.partner</field>
+        <field name="arch" type="xml">
+            <search string="Active">
+                <field name="active" string="Active" domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="storage_backend_partner_action" model="ir.actions.act_window">
+        <field name="name">SFTP Backend - Partners</field>
+        <field name="res_model">backend.sftp.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="False"/>
+        <field name="search_view_id" ref="backend_sftp_partner_search_view"/>
+    </record>
+</openerp>
