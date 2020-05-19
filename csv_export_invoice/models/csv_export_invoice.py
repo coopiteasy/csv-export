@@ -34,6 +34,7 @@ class InvoiceCSVExport(models.TransientModel):
     _inherit = "csv.export.base"
     _description = "Export Invoice CSV"
     _connector_model = "account.invoice"
+    _backend_model = "backend.sftp.invoice"
     _filename_template = "INV_%Y%m%d_%H%M.csv"
 
     def get_domain(self):

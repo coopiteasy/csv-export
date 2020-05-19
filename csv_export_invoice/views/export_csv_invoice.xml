@@ -23,8 +23,16 @@
                     </group>
                     <footer>
                         <button name="action_manual_export_base"
-                                string="Generate Invoice CSV" type="object"
-                                icon="gtk-execute" class="oe_highlight"/>
+                                string="Generate Invoice CSV"
+                                type="object"
+                                icon="gtk-execute"
+                                class="oe_highlight"/>
+                        <button name="action_send_to_backend_base"
+                                string="Send to SFTP Server"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('data','=',False)]}"
+                        />
                     </footer>
 
                 </form>
@@ -42,12 +50,5 @@
             <field name="target">new</field>
         </record>
 
-        <menuitem
-                id="menu_csv_export_invoice"
-                name="Export Invoice CSV"
-                action="action_csv_export_invoice"
-                parent="csv_export_base.menu_csv_export_base"
-                sequence="210"
-        />
     </data>
 </openerp>
