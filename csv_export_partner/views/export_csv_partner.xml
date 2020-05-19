@@ -25,6 +25,12 @@
                         <button name="action_manual_export_base"
                                 string="Generate Partner CSV" type="object"
                                 icon="gtk-execute" class="oe_highlight"/>
+                        <button name="action_send_to_backend_base"
+                                string="Send to SFTP Server"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('data','=',False)]}"
+                        />
                     </footer>
 
                 </form>
@@ -42,12 +48,5 @@
             <field name="target">new</field>
         </record>
 
-        <menuitem
-                id="menu_csv_export_partner"
-                name="Export Partner CSV"
-                action="action_csv_export_partner"
-                parent="csv_export_base.menu_csv_export_base"
-                sequence="220"
-        />
     </data>
 </openerp>

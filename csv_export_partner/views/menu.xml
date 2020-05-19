@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+
+    <menuitem id="menu_csv_export_partner"
+              name="Export Partner CSV"
+              action="action_csv_export_partner"
+              parent="csv_export_base.menu_csv_export_base"
+              sequence="220"
+    />
+    <menuitem id="sftp_backend_partner_configuration_menu"
+              name="SFTP Servers - Partners"
+              action="storage_backend_partner_action"
+              parent="sftp_backend.sftp_configuration_menu"
+    />
+</openerp>
