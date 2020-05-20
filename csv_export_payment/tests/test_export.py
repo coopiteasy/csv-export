@@ -24,6 +24,7 @@ class TestPaymentCSVExport(common.TransactionCase):
             {"start_date": "2019-01-01", "end_date": "2021-01-01"}
         )
         ice.action_manual_export_base()
-        with self.assertRaises(ValidationError):
-            ice.action_send_to_backend_base()
+        # with self.assertRaises(ValidationError):
+        #     ice.action_send_to_backend_base()
+        ice.action_send_to_backend_base()
 
