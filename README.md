@@ -14,14 +14,10 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[coopaname_custom](coopaname_custom/) | 9.0.0.0.2 | Lists all dependencies for Coopaname's deployement
-[hr_cae](hr_cae/) | 9.0.1.0.1 | Employee HR in a CAE - Cooperative Activité Emploi
-[hr_cae_contract](hr_cae_contract/) | 9.0.1.1.0 | Employee contracts in a CAE - Cooperative Activité Emploi
-[hr_cae_documents](hr_cae_documents/) | 9.0.1.0.0 | * Copies documents from hr_applicant and hr_employee. * Adds fields to documents.
-[hr_cae_event](hr_cae_event/) | 9.0.1.0.1 | Adds fields to events to organize information session.
-[hr_cae_event_promotion](hr_cae_event_promotion/) | 9.0.1.0.0 | Adds field and button to standard events to link an event to a promotion and invite all it's employees at once.
-[hr_cae_promotion](hr_cae_promotion/) | 9.0.1.0.1 | Add promotions as groups of employees.
-[hr_grap_custom](hr_grap_custom/) | 9.0.0.0.1 | Lists all dependencies for GRAP's deployement
-[member_data_history](member_data_history/) | 9.0.0.0.2 | Logs value change on selected fields.
+[csv_export_base](csv_export_base/) | 9.0.1.0.0 | Base to create module to export csv files.
+[csv_export_invoice](csv_export_invoice/) | 9.0.1.0.0 | Export your invoices as CSV flat files
+[csv_export_partner](csv_export_partner/) | 9.0.1.0.0 | Export your partners as CSV flat files
+[csv_export_payment](csv_export_payment/) | 9.0.1.0.0 | Export your payments as CSV flat files
+[sftp_backend](sftp_backend/) | 9.0.1.0.0 | SFTP backend utils.
 
 [//]: # (end addons)

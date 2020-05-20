@@ -52,6 +52,7 @@ class BaseCSVExport(models.AbstractModel):
 
     @api.multi
     def action_manual_export_base(self):
+        """Generate CSV"""
         self.ensure_one()
         data = self.get_headers_rows_array()
         file_data = StringIO()
@@ -74,6 +75,7 @@ class BaseCSVExport(models.AbstractModel):
 
     @api.multi
     def action_send_to_backend_base(self):
+        """Send CSV to SFTP server"""
         self.ensure_one()
         exports = self.env["backend.sftp.export"].search(
             [
