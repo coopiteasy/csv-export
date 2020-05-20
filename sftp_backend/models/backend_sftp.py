@@ -64,6 +64,7 @@ class BackendSFTPLine(models.Model):
         domain=[
             ("model", "ilike", "csv.export.%"),
             ("model", "!=", "csv.export.base"),
+            ("model", "!=", "csv.export.history"),
         ],
         help="""only csv.export.* models """,
     )

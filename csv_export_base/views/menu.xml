@@ -10,4 +10,11 @@
             parent="account.menu_finance_reports"
             sequence="200"
     />
+    <menuitem
+            id="csv_export_history_menu"
+            name="CSV Exports History"
+            action="csv_export_history_action"
+            parent="menu_csv_export_base"
+            sequence="1000"
+    />
 </openerp>

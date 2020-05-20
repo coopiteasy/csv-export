@@ -10,6 +10,6 @@
     "summary": "Base to create module to export csv files.",
     "website": "http://www.coopiteasy.be",
     "license": "AGPL-3",
-    "data": ["views/menu.xml"],
+    "data": ["views/csv_export_history.xml", "views/menu.xml"],
     "installable": True,
 }

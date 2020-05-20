@@ -5,8 +5,8 @@
 
 import logging
 
+# from openerp.exceptions import ValidationError
 from openerp.tests import common
-from openerp.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -27,4 +27,3 @@ class TestPaymentCSVExport(common.TransactionCase):
         # with self.assertRaises(ValidationError):
         #     ice.action_send_to_backend_base()
         ice.action_send_to_backend_base()
-
