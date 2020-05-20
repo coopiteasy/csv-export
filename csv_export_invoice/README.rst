@@ -19,6 +19,7 @@ Export Invoice CSV
 
 |badge1| |badge2| |badge3| 
 
+Export your invoices as CSV flat files
 
 **Table of contents**
 
@@ -42,6 +43,11 @@ Authors
 ~~~~~~~
 
 * Coop IT Easy SCRLfs
+
+Contributors
+~~~~~~~~~~~~
+
+* Robin Keunen <robin@coopiteasy.be>
 
 Maintainers
 ~~~~~~~~~~~

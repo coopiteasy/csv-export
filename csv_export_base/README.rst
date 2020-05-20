@@ -19,12 +19,25 @@ Export CSV Base
 
 |badge1| |badge2| |badge3| 
 
-Base to create module to export data as csv files.
+Base module to create csv file exports.
+These file can be sent to a SFTP server.
 
 **Table of contents**
 
 .. contents::
    :local:
+
+Usage
+=====
+
+* add a module ``csv_export_<model>``
+* add a transient model ``csv.export.<model>`` inheriting from ``csv.export.base`` and 
+   * implement ``get_domain``, ``get_headers`` and ``get_rows``
+   * set ``_connector_model`` (eg. "account.payment")
+   * set ``_filename_template`` (eg. "CASH_%Y%m%d_%H%M.csv")
+* add a view and menu for that model (examples in module ``account_export_payment``)
+* If needed configure a sftp server in the menu Configuration > SFTP Servers
+   * add export line referencing the csv.export.<model> you created.
 
 Known issues / Roadmap
 ======================
