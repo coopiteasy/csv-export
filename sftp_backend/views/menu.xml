@@ -9,4 +9,9 @@
               parent="base.menu_custom"
               sequence="500"
     />
+    <menuitem id="sftp_backend_configuration_menu"
+              name="SFTP Servers"
+              action="storage_backend_action"
+              parent="sftp_configuration_menu"
+    />
 </openerp>

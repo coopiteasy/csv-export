@@ -40,7 +40,6 @@ class PartnerCSVExport(models.TransientModel):
     _inherit = "csv.export.base"
     _description = "Export Partner CSV"
     _connector_model = "res.partner"
-    _backend_model = "backend.sftp.partner"
     _filename_template = "CLI_%Y%m%d_%H%M.csv"
 
     def get_domain(self):

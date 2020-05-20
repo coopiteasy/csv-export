@@ -11,9 +11,4 @@
               parent="csv_export_base.menu_csv_export_base"
               sequence="210"
     />
-    <menuitem id="sftp_backend_invoice_configuration_menu"
-              name="SFTP Servers - Invoices"
-              action="storage_backend_invoice_action"
-              parent="sftp_backend.sftp_configuration_menu"
-    />
 </openerp>

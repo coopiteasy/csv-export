@@ -6,6 +6,7 @@
 import logging
 
 from openerp.tests import common
+from openerp.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -23,3 +24,6 @@ class TestPaymentCSVExport(common.TransactionCase):
             {"start_date": "2019-01-01", "end_date": "2021-01-01"}
         )
         ice.action_manual_export_base()
+        with self.assertRaises(ValidationError):
+            ice.action_send_to_backend_base()
+
