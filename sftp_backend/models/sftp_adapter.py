@@ -36,6 +36,8 @@ def sftp(collection):
 
     agent = paramiko.Agent()
     agent_keys = agent.get_keys()
+    if not agent_keys:
+        raise UserError(_("Could not load RSA key from ssh agent"))
     transport.auth_publickey(collection.username, agent_keys[0])
     if not transport.is_authenticated():
         raise UserError(_("""Could not authenticate to sftp server"""))
