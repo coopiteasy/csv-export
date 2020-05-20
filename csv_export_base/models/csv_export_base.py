@@ -84,15 +84,23 @@ class BaseCSVExport(models.AbstractModel):
                 ("model_id.model", "=", self._name),
             ]
         )
-        if exports:
-            for export in exports:
-                data = base64.decodestring(self.data)
-                export.add(self.filename, data)
-                self._log_export(export.path, success=True)
-        else:
+        if not exports:
             raise ValidationError(
                 _("No sftp server configured for this export.")
             )
+
+        for export in exports:
+            data = base64.decodestring(self.data)
+            try:
+                export.add(self.filename, data)
+                self._log_export(export.path, success=True)
+            except Exception as e:
+                _logger.error(e)
+                # does not write in DB if exception in raised
+                # when writing cron, extract code from button action
+                # and make sure the log is written
+                # self._log_export(export.path, success=False)
+                raise e
 
     @api.multi
     def _log_export(self, path, success):
