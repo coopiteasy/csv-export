@@ -11,9 +11,4 @@
               parent="csv_export_base.menu_csv_export_base"
               sequence="220"
     />
-    <menuitem id="sftp_backend_partner_configuration_menu"
-              name="SFTP Servers - Partners"
-              action="storage_backend_partner_action"
-              parent="sftp_backend.sftp_configuration_menu"
-    />
 </openerp>

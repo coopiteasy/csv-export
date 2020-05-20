@@ -18,7 +18,7 @@ HEADERS = (
 class PartnerCSVExport(models.TransientModel):
     _name = "csv.export.payment"
     _inherit = "csv.export.base"
-    _description = "Export Partner CSV"
+    _description = "Export Payment CSV"
     _connector_model = "account.payment"
     _filename_template = "CASH_%Y%m%d_%H%M.csv"
 

@@ -8,7 +8,8 @@ import logging
 from datetime import datetime
 
 from cStringIO import StringIO
-from openerp import api, fields, models
+from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 
 from .csv_writer import CSVUnicodeWriter
 
@@ -19,7 +20,6 @@ class BaseCSVExport(models.AbstractModel):
     _name = "csv.export.base"
     _description = "Export CSV Base"
     _connector_model = ""
-    _backend_model = ""
     _filename_template = "export_%Y%m%d_%H%M"
 
     def _default_filename(self):
@@ -75,8 +75,17 @@ class BaseCSVExport(models.AbstractModel):
     @api.multi
     def action_send_to_backend_base(self):
         self.ensure_one()
-        backends = self.env[self._backend_model].search(
-            [("active", "=", True)]
+        exports = self.env["backend.sftp.export"].search(
+            [
+                ("active", "=", True),
+                ("backend_id.active", "=", True),
+                ("model_id.model", "=", self._name),
+            ]
         )
-        data = base64.decodestring(self.data)
-        backends.add(self.filename, data)
+        if exports:
+            data = base64.decodestring(self.data)
+            exports.add(self.filename, data)
+        else:
+            raise ValidationError(
+                _("No sftp server configured for this export.")
+            )
