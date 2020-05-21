@@ -3,7 +3,7 @@
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
     <record id="backend_sftp_view_tree" model="ir.ui.view">
         <field name="name">backend_sftp_view_tree</field>
         <field name="model">backend.sftp</field>
@@ -35,6 +35,7 @@
                         <field name="host"/>
                         <field name="port"/>
                         <field name="auth_method"/>
+                        <field name="key_file" attrs="{'invisible': [('auth_method', '!=', 'key_file')]}"/>
                     </group>
                     <notebook>
                         <page name="exports" string="Exports">
@@ -73,4 +74,4 @@
         <field name="view_id" eval="False"/>
         <field name="search_view_id" ref="backend_sftp_search_view"/>
     </record>
-</openerp>
+</odoo>

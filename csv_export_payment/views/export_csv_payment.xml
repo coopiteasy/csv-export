@@ -3,7 +3,7 @@
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
     <data>
 
         <record id="csv_export_payment_view" model="ir.ui.view">
@@ -56,4 +56,4 @@
                 sequence="220"
         />
     </data>
-</openerp>
+</odoo>

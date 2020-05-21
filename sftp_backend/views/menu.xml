@@ -3,7 +3,7 @@
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
     <menuitem id="sftp_configuration_menu"
               name="SFTP Servers"
               parent="base.menu_custom"
@@ -14,4 +14,4 @@
               action="storage_backend_action"
               parent="sftp_configuration_menu"
     />
-</openerp>
+</odoo>

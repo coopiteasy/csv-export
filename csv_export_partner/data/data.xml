@@ -3,11 +3,11 @@
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
     <data noupdate="1">
         <record id="partner_export_reference_sequence" model="ir.sequence">
             <field name="name">Partner Export Reference</field>
             <field name="code">res.partner.export.reference</field>
         </record>
     </data>
-</openerp>
+</odoo>
