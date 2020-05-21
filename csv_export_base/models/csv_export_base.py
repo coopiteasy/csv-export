@@ -7,13 +7,17 @@ import base64
 import logging
 from datetime import datetime
 
-from cStringIO import StringIO
 from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
 
 from .csv_writer import CSVUnicodeWriter
 
 _logger = logging.getLogger(__name__)
+
+try:
+    from cStringIO import StringIO
+except ImportError as err:
+    _logger.debug(err)
 
 
 class BaseCSVExport(models.AbstractModel):

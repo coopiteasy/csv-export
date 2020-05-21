@@ -15,5 +15,6 @@
         "views/csv_export_history.xml",
         "views/menu.xml",
     ],
+    "external_dependencies": {"python": ["cStringIO"]},
     "installable": True,
 }
