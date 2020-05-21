@@ -11,11 +11,15 @@ import os
 from binascii import hexlify
 from contextlib import contextmanager
 
-import paramiko
 from openerp import _
 from openerp.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
+
+try:
+    import paramiko
+except ImportError as err:
+    _logger.debug(err)
 
 
 def agent_auth(transport, username):

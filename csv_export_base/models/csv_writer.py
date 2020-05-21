@@ -7,8 +7,14 @@
 
 import codecs
 import csv
+import logging
 
-from cStringIO import StringIO
+_logger = logging.getLogger(__name__)
+
+try:
+    from cStringIO import StringIO
+except ImportError as err:
+    _logger.debug(err)
 
 
 class CSVUnicodeWriter:
