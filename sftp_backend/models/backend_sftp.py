@@ -8,7 +8,8 @@
 import logging
 from os.path import join
 
-from openerp import api, fields, models
+from openerp import _, api, fields, models
+from openerp.exceptions import ValidationError
 
 from .sftp_adapter import SftpAdapter
 
@@ -28,16 +29,33 @@ class SFTPBackend(models.Model):
     port = fields.Integer(string="Port", required=True, default=22)
     auth_method = fields.Selection(
         string="Authentication Method",
-        selection=[("rsa_key", "Private RSA key")],
+        selection=[("agent", "SSH Agent"), ("key_file", "Key File")],
         default="rsa_key",
         required=True,
+        help="""
+        * Agent: will use ssh agent to retrieve private keys
+        * Key File: load a key at given path.
+        """,
     )
+    key_file = fields.Char(string="Key File")
     active = fields.Boolean(string="Active", default=True)
     export_ids = fields.One2many(
         comodel_name="backend.sftp.export",
         inverse_name="backend_id",
         string="Exports",
     )
+
+    @api.multi
+    @api.constrains("auth_method", "key_file")
+    def _check_key_file_auth(self):
+        for backend in self:
+            if backend.auth_method == "key_file" and not backend.key_file:
+                raise ValidationError(
+                    _(
+                        """Key file must be set for this authentication
+                        method """
+                    )
+                )
 
     @api.multi
     def _compute_name(self):
@@ -48,6 +66,15 @@ class SFTPBackend(models.Model):
                 )
             else:
                 backend.name = False
+
+    def get_adapter(self):
+        return SftpAdapter(
+            username=self.username,
+            hostname=self.host,
+            port=self.port,
+            auth_method=self.auth_method,
+            key_file=self.key_file,
+        )
 
 
 class BackendSFTPLine(models.Model):
@@ -74,7 +101,7 @@ class BackendSFTPLine(models.Model):
     def add(self, filename, data):
         for export in self:
             backend = export.backend_id
-            adapter = SftpAdapter(backend.username, backend.host, backend.port)
+            adapter = backend.get_adapter()
             path = join(export.path, filename)
             _logger.info("{} - add to {}".format(backend.name, path))
             adapter.add(path, data)
@@ -83,22 +110,22 @@ class BackendSFTPLine(models.Model):
     def get(self, filename):
         self.ensure_one()
         backend = self.backend_id
-        adapter = SftpAdapter(backend.username, backend.host, backend.port)
+        adapter = backend.get_adapter()
         path = join(self.path, filename)
-        _logger.info("{} - get {}".format(self.name, path))
+        _logger.info("{} - get {}".format(backend.name, path))
         return adapter.get(path)
 
     def list(self, path):
         self.ensure_one()
         backend = self.backend_id
-        adapter = SftpAdapter(backend.username, backend.host, backend.port)
+        adapter = backend.get_adapter()
         _logger.info("{} - list {}".format(self.name, path))
         return adapter.get(path)
 
     def delete(self, filename):
         for export in self:
             backend = export.backend_id
-            adapter = SftpAdapter(backend.username, backend.host, backend.port)
+            adapter = backend.get_adapter()
             path = join(export.path, filename)
-            _logger.info("{} - delete {}".format(self.name, path))
+            _logger.info("{} - delete {}".format(backend.name, path))
             adapter.delete(path)
