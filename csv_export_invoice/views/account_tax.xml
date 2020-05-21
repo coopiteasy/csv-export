@@ -3,7 +3,7 @@
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
     <record id="view_tax_tree" model="ir.ui.view">
         <field name="name">account.tax.tree</field>
         <field name="model">account.tax</field>
@@ -25,4 +25,4 @@
             </field>
         </field>
     </record>
-</openerp>
+</odoo>

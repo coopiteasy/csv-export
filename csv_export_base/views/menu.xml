@@ -3,7 +3,7 @@
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
     <menuitem
             id="menu_csv_export_base"
             name="CSV Exports"
@@ -17,4 +17,4 @@
             parent="menu_csv_export_base"
             sequence="1000"
     />
-</openerp>
+</odoo>

@@ -3,7 +3,7 @@
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
 
     <menuitem id="menu_csv_export_partner"
               name="Export Partner CSV"
@@ -11,4 +11,4 @@
               parent="csv_export_base.menu_csv_export_base"
               sequence="220"
     />
-</openerp>
+</odoo>
