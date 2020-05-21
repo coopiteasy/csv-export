@@ -1,5 +1,5 @@
 * add a module ``csv_export_<model>``
-* add a transient model ``csv.export.<model>`` inheriting from ``csv.export.base`` and 
+* add a transient model ``csv.export.<model>`` inheriting from ``csv.export.base`` and
    * implement ``get_domain``, ``get_headers`` and ``get_rows``
    * set ``_connector_model`` (eg. "account.payment")
    * set ``_filename_template`` (eg. "CASH_%Y%m%d_%H%M.csv")
