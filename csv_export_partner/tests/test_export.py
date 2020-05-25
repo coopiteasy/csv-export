@@ -18,10 +18,9 @@ class TestPartnerCSVExport(common.TransactionCase):
         for row in rows:
             _logger.info(row)
 
-    def test_invoice_csv_export(self):
+    def test_partner_csv_export(self):
         ice = self.env["csv.export.partner"].create(
-            {"start_date": "2020-05-01", "end_date": "2020-05-02"}
+            {"start_date": "2019-01-01", "end_date": "2021-01-01"}
         )
         ice.action_manual_export_base()
-        # needs mocking
-        # ice.action_send_to_backend_base()
+        ice.action_send_to_backend_base()
