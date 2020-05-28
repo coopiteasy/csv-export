@@ -29,7 +29,7 @@ _LANG_MAP = {"fr_BE": "FR", "nl_BE": "NL", "en_US": "EN"}
 
 _FISCAL_POSITION_MAP = {
     False: "",
-    u"Régime National": "A",
+    u"Régime National": "",
     u"Régime Intra-Communautaire": "N",
     u"Régime Extra-Communautaire": "X",
 }
