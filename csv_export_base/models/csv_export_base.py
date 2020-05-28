@@ -50,6 +50,7 @@ class BaseCSVExport(models.AbstractModel):
     @api.multi
     def get_headers_rows_array(self):
         recordset = self.env[self._connector_model].search(self.get_domain())
+        _logger.info("fetching data for %s export" % self._connector_model)
         header = self.get_headers()
         rows = self.get_rows(recordset)
         return [header] + rows
@@ -61,6 +62,7 @@ class BaseCSVExport(models.AbstractModel):
         data = self.get_headers_rows_array()
         file_data = StringIO()
         try:
+            _logger.info("writing %s lines to %s" % (len(data), self.filename))
             writer = CSVUnicodeWriter(file_data, delimiter="|")
             writer.writerows(data)
             file_value = file_data.getvalue()

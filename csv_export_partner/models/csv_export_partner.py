@@ -34,6 +34,19 @@ _FISCAL_POSITION_MAP = {
     u"Régime Extra-Communautaire": "X",
 }
 
+_PAYMENT_TERM_MAP = {  # pylint: disable=duplicate-key
+    False: "",
+    0: "0 JOUR",
+    7: "7 JOURS",
+    10: "10 JOURS",
+    14: "14 JOU",
+    15: "15 JOURS",
+    20: "20 JOURS",
+    30: "30 JOURS",
+    50: "50 JOURS",
+    60: "60 JOURS",
+}
+
 
 class PartnerCSVExport(models.TransientModel):
     _name = "csv.export.partner"
@@ -86,7 +99,9 @@ class PartnerCSVExport(models.TransientModel):
             days = sorted(
                 partner.property_payment_term_id.line_ids.mapped("days")
             )
-            payment_term = days[0] if days else ""
+            days = days[0] if days else False
+            payment_term = _PAYMENT_TERM_MAP.get(days)
+
         else:
             payment_term = ""
 
