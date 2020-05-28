@@ -80,7 +80,7 @@ class InvoiceCSVExport(models.TransientModel):
             invoice.number,
             invoice.date_invoice,
             invoice.date_due,
-            invoice.partner_id.name,
+            invoice.partner_id.export_reference,
             reference,
             invoice.origin,
             line.price_subtotal,

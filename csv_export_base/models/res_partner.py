@@ -17,6 +17,7 @@ class ResPartner(models.Model):
     export_reference = fields.Char(
         string="Export Reference",
         default=_default_export_reference,
+        required=True,
         read_only=True,
         copy=False,
     )
