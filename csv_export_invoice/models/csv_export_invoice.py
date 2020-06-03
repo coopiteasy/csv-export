@@ -61,15 +61,11 @@ class InvoiceCSVExport(models.TransientModel):
             raise ValidationError(
                 _("This module does not allow several taxes per invoice line")
             )
-        elif tax:
-            tax_code = tax.name  # todo map code
-            tax_amount = line.price_subtotal * (21.0 / 100)
-            base_amount = line.price_subtotal - tax_amount
-        else:
-            tax_code = ""
-            tax_amount = 0.0
-            base_amount = line.price_subtotal
 
+        tax_code = tax.name if tax else ""  # todo get tax code
+        total_amount, base_amount, tax_amount = self._get_amounts(line.price_subtotal, tax)
+
+        # todo analytic accounts
         if line.account_analytic_id and line.account_analytic_id.code:
             analytic_code = line.account_analytic_id.code
         else:
@@ -83,7 +79,7 @@ class InvoiceCSVExport(models.TransientModel):
             invoice.partner_id.export_reference,
             reference,
             invoice.origin,
-            line.price_subtotal,
+            total_amount,
             line.account_id.code,
             base_amount,
             tax_code,
@@ -104,3 +100,16 @@ class InvoiceCSVExport(models.TransientModel):
         )
         rows = [self.get_row(line) for line in lines]
         return rows
+
+    def _get_amounts(self, total_amount, tax):
+
+        total_amount = round(total_amount, 2)
+        if tax:
+            tax_percentage = tax.amount
+            tax_amount = round(total_amount * (tax_percentage / 100))
+            base_amount = total_amount - tax_amount
+        else:
+            tax_amount = 0.0
+            base_amount = total_amount
+
+        return total_amount, base_amount, tax_amount
