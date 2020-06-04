@@ -8,7 +8,7 @@
     "depends": ["base"],
     "author": "Coop IT Easy SCRLfs",
     "summary": "SFTP backend utils.",
-    "website": "http://www.coopiteasy.be",
+    "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",
     "data": [
         "security/ir.model.access.csv",
