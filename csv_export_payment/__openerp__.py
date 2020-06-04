@@ -8,7 +8,7 @@
     "depends": ["account", "csv_export_base"],
     "author": "Coop IT Easy SCRLfs",
     "summary": "Export your payments as CSV flat files",
-    "website": "http://www.coopiteasy.be",
+    "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",
     "data": ["views/export_csv_payment.xml"],
     "installable": True,

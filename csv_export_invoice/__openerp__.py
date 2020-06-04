@@ -8,7 +8,7 @@
     "depends": ["account", "csv_export_base", "l10n_be_invoice_bba"],
     "author": "Coop IT Easy SCRLfs",
     "summary": "Export your invoices as CSV flat files",
-    "website": "http://www.coopiteasy.be",
+    "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",
     "data": [
         "views/account_tax.xml",
