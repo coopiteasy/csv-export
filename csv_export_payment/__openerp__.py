@@ -5,7 +5,7 @@
 {
     "name": "Export Payment CSV",
     "version": "9.0.1.0.0",
-    "depends": ["account", "csv_export_base"],
+    "depends": ["csv_export_base"],
     "author": "Coop IT Easy SCRLfs",
     "summary": "Export your payments as CSV flat files",
     "website": "https://www.coopiteasy.be",

@@ -5,7 +5,7 @@
 {
     "name": "Export CSV Base",
     "version": "9.0.1.0.0",
-    "depends": ["sftp_backend"],
+    "depends": ["account", "sftp_backend"],
     "author": "Coop IT Easy SCRLfs",
     "summary": "Base to create module to export csv files.",
     "website": "https://www.coopiteasy.be",
