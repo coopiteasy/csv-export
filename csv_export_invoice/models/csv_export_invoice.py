@@ -63,7 +63,8 @@ class InvoiceCSVExport(models.TransientModel):
             )
 
         tax_code = tax.name if tax else ""  # todo get tax code
-        total_amount, base_amount, tax_amount = self._get_amounts(line.price_subtotal, tax)
+        base_amount, tax_amount = self._get_line_amounts(line)
+        total_amount = self._get_total_amount(invoice)
 
         # todo analytic accounts
         if line.account_analytic_id and line.account_analytic_id.code:
@@ -101,15 +102,37 @@ class InvoiceCSVExport(models.TransientModel):
         rows = [self.get_row(line) for line in lines]
         return rows
 
-    def _get_amounts(self, total_amount, tax):
+    def _get_line_amounts(self, line):
+        """
 
-        total_amount = round(total_amount, 2)
+        :param line_amount: float, including taxes
+        :param tax: float, line tax amount
+        :return: a tuple of total amount, base_amount and tax_amount.
+          base_amount and tax_amount are rounded to two decimals.
+          total_amount is the sum of rounded base_amount and tax_amount
+          for lines in the invoice.
+        """
+        tax = line.invoice_line_tax_ids
+        line_amount = round(line.price_subtotal, 2)
         if tax:
             tax_percentage = tax.amount
-            tax_amount = round(total_amount * (tax_percentage / 100))
-            base_amount = total_amount - tax_amount
+            tax_amount = round(line_amount * (tax_percentage / 100.), 2)
+            base_amount = line_amount - tax_amount
         else:
             tax_amount = 0.0
-            base_amount = total_amount
+            base_amount = line_amount
 
-        return total_amount, base_amount, tax_amount
+        return base_amount, tax_amount
+
+    def _get_total_amount(self, invoice):
+        """
+        We  go trough this function to make sure that
+        Total invoice = sum(base line amount) + sum(tax line amount)
+        for rounded amounts
+        """
+        return sum(
+            (
+                sum(self._get_line_amounts(line))  # (base_amount, tax_amount)
+                for line in invoice.invoice_line_ids
+            )
+        )
