@@ -66,12 +66,6 @@ class InvoiceCSVExport(models.TransientModel):
         base_amount, tax_amount = self._get_line_amounts(line)
         total_amount = self._get_total_amount(invoice)
 
-        # todo analytic accounts
-        if line.account_analytic_id and line.account_analytic_id.code:
-            analytic_code = line.account_analytic_id.code
-        else:
-            analytic_code = ""
-
         row = (
             invoice.journal_id.code,
             invoice.number,
@@ -86,7 +80,12 @@ class InvoiceCSVExport(models.TransientModel):
             tax_code,
             tax_amount,
             line.product_id.name,
-            analytic_code,
+            invoice.financing_id.bob_code,
+            invoice.project_id.bob_code,
+            invoice.location_id.bob_code,
+            invoice.department_id.bob_code,
+            "",
+            "",
         )
         return row
 
