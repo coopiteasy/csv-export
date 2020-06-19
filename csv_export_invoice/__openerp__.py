@@ -5,7 +5,7 @@
 {
     "name": "Export Invoice CSV",
     "version": "9.0.1.0.0",
-    "depends": ["csv_export_base", "l10n_be_invoice_bba"],
+    "depends": ["csv_export_base", "l10n_be_invoice_bba", "provelo_analytic_account"],
     "author": "Coop IT Easy SCRLfs",
     "summary": "Export your invoices as CSV flat files",
     "website": "https://www.coopiteasy.be",
