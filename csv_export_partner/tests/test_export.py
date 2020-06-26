@@ -24,3 +24,6 @@ class TestPartnerCSVExport(common.TransactionCase):
         )
         ice.action_manual_export_base()
         ice.action_send_to_backend_base()
+
+    def test_cron(self):
+        self.env["csv.export.partner"].cron_daily_export()

@@ -10,6 +10,6 @@
     "summary": "Export your payments as CSV flat files",
     "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",
-    "data": ["views/export_csv_payment.xml"],
+    "data": ["data/cron.xml", "views/export_csv_payment.xml"],
     "installable": True,
 }

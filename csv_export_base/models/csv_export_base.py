@@ -5,7 +5,7 @@
 
 import base64
 import logging
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
@@ -102,6 +102,7 @@ class BaseCSVExport(models.AbstractModel):
                 self._log_export(export.path, success=True)
             except Exception as e:
                 _logger.error(e)
+                # fixme
                 # does not write in DB if exception in raised
                 # when writing cron, extract code from button action
                 # and make sure the log is written
@@ -122,3 +123,17 @@ class BaseCSVExport(models.AbstractModel):
                     "success": success,
                 }
             )
+
+    @api.model
+    def cron_daily_export(self):
+        model = self._model._name
+        end_date = date.today()
+        start_date = end_date - timedelta(days=1)
+        cep = self.env[model].create(
+            {
+                "start_date": fields.Date.to_string(start_date),
+                "end_date": fields.Date.to_string(end_date),
+            }
+        )
+        cep.action_manual_export_base()
+        cep.action_send_to_backend_base()
