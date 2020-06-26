@@ -5,8 +5,9 @@
 
 import base64
 import logging
-from datetime import datetime, date, timedelta
+from datetime import date, datetime, timedelta
 
+import openerp
 from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
 
@@ -62,7 +63,9 @@ class BaseCSVExport(models.AbstractModel):
         data = self.get_headers_rows_array()
         file_data = StringIO()
         try:
-            _logger.info("writing %s lines to %s" % (len(data), self.filename))
+            _logger.info(
+                "writing {} lines to {}".format(len(data), self.filename)
+            )
             writer = CSVUnicodeWriter(file_data, delimiter="|")
             writer.writerows(data)
             file_value = file_data.getvalue()
@@ -102,27 +105,28 @@ class BaseCSVExport(models.AbstractModel):
                 self._log_export(export.path, success=True)
             except Exception as e:
                 _logger.error(e)
-                # fixme
-                # does not write in DB if exception in raised
-                # when writing cron, extract code from button action
-                # and make sure the log is written
-                # self._log_export(export.path, success=False)
+                self._log_export(export.path, success=False)
                 raise e
 
     @api.multi
     def _log_export(self, path, success):
-        for export in self:
-            self.env["csv.export.history"].sudo().create(
-                {
-                    "date": fields.Datetime.now(),
-                    "path": path,
-                    "model": self._name,
-                    "filename": export.filename,
-                    "start_date": export.start_date,
-                    "end_date": export.end_date,
-                    "success": success,
-                }
-            )
+        # use a cursor to make sure log is written to database in case an
+        # exception and rollback occurs
+        with api.Environment.manage():
+            with openerp.registry(self.env.cr.dbname).cursor() as new_cr:
+                env = api.Environment(new_cr, self.env.uid, self.env.context)
+                for export in self:
+                    env["csv.export.history"].sudo().create(
+                        {
+                            "date": fields.Datetime.now(),
+                            "path": path,
+                            "model": self._name,
+                            "filename": export.filename,
+                            "start_date": export.start_date,
+                            "end_date": export.end_date,
+                            "success": success,
+                        }
+                    )
 
     @api.model
     def cron_daily_export(self):

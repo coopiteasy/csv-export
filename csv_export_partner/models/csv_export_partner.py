@@ -35,8 +35,8 @@ _FISCAL_POSITION_MAP = {
 }
 
 _PAYMENT_TERM_MAP = {  # pylint: disable=duplicate-key
-    False: "",
-    0: "0 JOUR",
+    False: "",  # noqa
+    0: "0 JOUR",  # noqa
     7: "7 JOURS",
     10: "10 JOURS",
     14: "14 JOU",
