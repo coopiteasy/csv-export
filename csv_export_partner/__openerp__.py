@@ -11,6 +11,7 @@
     "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",
     "data": [
+        "data/cron.xml",
         "views/res_partner.xml",
         "views/export_csv_partner.xml",
         "views/menu.xml",

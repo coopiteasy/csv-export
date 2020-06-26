@@ -115,7 +115,7 @@ class InvoiceCSVExport(models.TransientModel):
         line_amount = round(line.price_subtotal, 2)
         if tax:
             tax_percentage = tax.amount
-            tax_amount = round(line_amount * (tax_percentage / 100.), 2)
+            tax_amount = round(line_amount * (tax_percentage / 100.0), 2)
             base_amount = line_amount - tax_amount
         else:
             tax_amount = 0.0
