@@ -130,8 +130,6 @@ class InvoiceCSVExport(models.TransientModel):
         for rounded amounts
         """
         return sum(
-            (
-                sum(self._get_line_amounts(line))  # (base_amount, tax_amount)
-                for line in invoice.invoice_line_ids
-            )
+            sum(self._get_line_amounts(line))  # (base_amount, tax_amount)
+            for line in invoice.invoice_line_ids
         )
