@@ -24,7 +24,7 @@ class PartnerCSVExport(models.TransientModel):
 
     def get_domain(self):
         return [
-            ("journal_id.code", "=", "CSH1"),
+            ("journal_id.type", "=", "cash"),
             ("state", "!=", "draft"),
             ("payment_date", ">=", self.start_date),
             ("payment_date", "<", self.end_date),
