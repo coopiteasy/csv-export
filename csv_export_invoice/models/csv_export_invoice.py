@@ -62,7 +62,7 @@ class InvoiceCSVExport(models.TransientModel):
                 _("This module does not allow several taxes per invoice line")
             )
 
-        tax_code = tax.name if tax else ""  # todo get tax code
+        tax_code = tax.export_code if tax else ""
         base_amount, tax_amount = self._get_line_amounts(line)
         total_amount = self._get_total_amount(invoice)
 
