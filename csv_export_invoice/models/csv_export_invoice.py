@@ -80,10 +80,10 @@ class InvoiceCSVExport(models.TransientModel):
             tax_code,
             tax_amount,
             line.product_id.name,
-            invoice.financing_id.bob_code,
-            invoice.project_id.bob_code,
-            invoice.location_id.bob_code,
             invoice.department_id.bob_code,
+            invoice.location_id.bob_code,
+            invoice.project_id.bob_code,
+            invoice.financing_id.bob_code,
             "",
             "",
         )
