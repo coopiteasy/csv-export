@@ -121,6 +121,8 @@ class InvoiceCSVExport(models.TransientModel):
             tax_amount = 0.0
             base_amount = line_amount
 
+        base_amount = base_amount or 0.
+        tax_amount = tax_amount or 0.
         return base_amount, tax_amount
 
     def _get_total_amount(self, invoice):
