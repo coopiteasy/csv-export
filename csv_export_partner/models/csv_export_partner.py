@@ -106,7 +106,7 @@ class PartnerCSVExport(models.TransientModel):
             payment_term = ""
 
         row = (
-            partner.id,
+            partner.export_reference,
             partner.name,
             company,
             partner.street,
