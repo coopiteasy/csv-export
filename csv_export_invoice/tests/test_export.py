@@ -20,9 +20,8 @@ class TestCSVExport(common.TransactionCase):
 
     def test_invoice_csv_export(self):
         ice = self.env["csv.export.invoice"].create(
-            {"start_date": "2019-01-01", "end_date": "2021-01-01"}
+            {"start_date": "2020-06-29", "end_date": "2020-06-30"}
         )
-        # invoice = self.env["account.invoice"].browse(1)
         ice.action_manual_export_base()
         # needs mocking
         ice.action_send_to_backend_base()
