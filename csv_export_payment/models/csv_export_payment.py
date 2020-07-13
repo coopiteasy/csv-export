@@ -53,6 +53,6 @@ class PartnerCSVExport(models.TransientModel):
             payment.partner_id.export_reference,
             invoice.number,
             invoice.journal_id.code,
-            payment.amount,
+            str(payment.amount),
         )
         return rows
