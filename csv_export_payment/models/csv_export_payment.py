@@ -3,7 +3,7 @@
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, _
+from openerp import _, models
 from openerp.exceptions import ValidationError
 
 HEADERS = (
@@ -40,12 +40,12 @@ class PartnerCSVExport(models.TransientModel):
         payment = record
 
         if len(payment.invoice_ids) > 1:
-            raise ValidationError(_(
-                "The csv export can't handle multiple invoice per payment"
-            ))
+            raise ValidationError(
+                _("The csv export can't handle multiple invoice per payment")
+            )
         invoice = payment.invoice_ids
 
-        rows = (
+        row = (
             payment.name,
             payment.journal_id.code,
             payment.payment_date,
@@ -55,4 +55,7 @@ class PartnerCSVExport(models.TransientModel):
             invoice.journal_id.code,
             str(payment.amount),
         )
-        return rows
+
+        row = tuple(self.replace_line_return(s) for s in row)
+
+        return row
