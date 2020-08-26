@@ -87,6 +87,9 @@ class InvoiceCSVExport(models.TransientModel):
             "",
             "",
         )
+
+        row = tuple(self.replace_line_return(s) for s in row)
+
         return row
 
     def get_rows(self, recordset):
@@ -121,8 +124,8 @@ class InvoiceCSVExport(models.TransientModel):
             tax_amount = 0.0
             base_amount = line_amount
 
-        base_amount = base_amount or 0.
-        tax_amount = tax_amount or 0.
+        base_amount = base_amount or 0.0
+        tax_amount = tax_amount or 0.0
         return base_amount, tax_amount
 
     def _get_total_amount(self, invoice):

@@ -48,6 +48,12 @@ class BaseCSVExport(models.AbstractModel):
     def get_rows(self, recordset):
         return [self.get_row(record) for record in recordset]
 
+    def replace_line_return(self, s):
+        if type(s) is str or type(s) is unicode:  # noqa
+            return s.replace("\n", " ").strip()
+        else:
+            return s
+
     @api.multi
     def get_headers_rows_array(self):
         recordset = self.env[self._connector_model].search(self.get_domain())

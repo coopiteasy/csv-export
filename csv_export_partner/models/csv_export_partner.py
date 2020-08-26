@@ -123,4 +123,7 @@ class PartnerCSVExport(models.TransientModel):
             partner.email,
             payment_term,
         )
+
+        row = tuple(self.replace_line_return(s) for s in row)
+
         return row
