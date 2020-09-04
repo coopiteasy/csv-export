@@ -114,19 +114,18 @@ class InvoiceCSVExport(models.TransientModel):
           total_amount is the sum of rounded base_amount and tax_amount
           for lines in the invoice.
         """
-        tax = line.invoice_line_tax_ids
-        line_amount = round(line.price_subtotal, 2)
-        if tax:
-            tax_percentage = tax.amount
-            tax_amount = round(line_amount * (tax_percentage / 100.0), 2)
-            base_amount = line_amount - tax_amount
-        else:
-            tax_amount = 0.0
-            base_amount = line_amount
-
-        base_amount = base_amount or 0.0
-        tax_amount = tax_amount or 0.0
-        return base_amount, tax_amount
+        taxes = line.invoice_line_tax_ids
+        tax_amounts = taxes.compute_all(
+            line.price_unit,
+            line.invoice_id.currency_id,
+            line.quantity,
+            product=line.product_id,
+            partner=line.invoice_id.partner_id,
+        )
+        total_included = tax_amounts.get("total_included", 0.0)
+        total_excluded = tax_amounts.get("total_excluded", 0.0)
+        tax_amount = total_included - total_excluded
+        return total_excluded, tax_amount
 
     def _get_total_amount(self, invoice):
         """
