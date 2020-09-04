@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+        <record id="csv_export_invoice_cron" model="ir.cron">
+            <field name="name">
+                Generate daily invoice csv and send to sftp server
+            </field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="model">csv.export.invoice</field>
+            <field name="function">cron_daily_export</field>
+            <field name="args">()</field>
+        </record>
+    </data>
+</odoo>

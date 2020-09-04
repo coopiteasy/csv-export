@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <menuitem id="sftp_configuration_menu"
+              name="SFTP Servers"
+              parent="base.menu_custom"
+              sequence="500"
+    />
+    <menuitem id="sftp_backend_configuration_menu"
+              name="SFTP Servers"
+              action="storage_backend_action"
+              parent="sftp_configuration_menu"
+    />
+</odoo>

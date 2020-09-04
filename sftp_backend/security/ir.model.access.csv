@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_backend_sftp_admin,access_backend_sftp_admin,model_backend_sftp,base.group_system,1,1,1,1
+access_backend_sftp_export_admin,access_backend_sftp_export_admin,model_backend_sftp_export,base.group_system,1,1,1,1
