@@ -9,6 +9,11 @@ from openerp import fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    _sql_constraints = [
+        ('partner_export_reference_unique', 'UNIQUE (export_reference)',
+         'The export reference must be unique!'),
+    ]
+
     def _default_export_reference(self):
         return self.env["ir.sequence"].next_by_code(
             "res.partner.export.reference"
