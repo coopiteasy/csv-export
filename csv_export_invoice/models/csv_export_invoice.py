@@ -66,6 +66,8 @@ class InvoiceCSVExport(models.TransientModel):
         base_amount, tax_amount = self._get_line_amounts(line)
         total_amount = self._get_total_amount(invoice)
 
+        product_name = line.product_id.with_context(lang="fr_BE").name
+
         row = (
             invoice.journal_id.code,
             invoice.number,
@@ -79,7 +81,7 @@ class InvoiceCSVExport(models.TransientModel):
             str(base_amount),
             tax_code,
             str(tax_amount),
-            line.product_id.name,
+            product_name,
             invoice.department_id.bob_code,
             invoice.location_id.bob_code,
             invoice.project_id.bob_code,
