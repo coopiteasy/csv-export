@@ -90,6 +90,7 @@ class BackendSFTPLine(models.Model):
         required=True,
         domain=[
             ("model", "ilike", "csv.export.%"),
+            ("model", "ilike", "csv.import.%"),
             ("model", "!=", "csv.export.base"),
             ("model", "!=", "csv.export.history"),
         ],
