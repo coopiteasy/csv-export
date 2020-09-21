@@ -18,6 +18,7 @@ addon | version | summary
 [csv_export_invoice](csv_export_invoice/) | 9.0.1.0.0 | Export your invoices as CSV flat files
 [csv_export_partner](csv_export_partner/) | 9.0.1.0.0 | Export your partners as CSV flat files
 [csv_export_payment](csv_export_payment/) | 9.0.1.0.0 | Export your payments as CSV flat files
+[csv_import_payment](csv_import_payment/) | 9.0.1.0.0 | Import payments as CSV flat files from BOB
 [sftp_backend](sftp_backend/) | 9.0.1.0.0 | SFTP backend utils.
 
 [//]: # (end addons)
