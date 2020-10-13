@@ -68,6 +68,18 @@ class InvoiceCSVExport(models.TransientModel):
 
         product_name = line.product_id.with_context(lang="fr_BE").name
 
+        if invoice.type == u"out_refund":
+            origin = self.env["account.invoice"].search(
+                [
+                    ("number", "=", invoice.origin),
+                    ("journal_id", "=", invoice.journal_id.id),
+                ]
+            )
+            if origin:
+                total_amount = -total_amount
+                base_amount = -base_amount
+                tax_amount = -tax_amount
+
         row = (
             invoice.journal_id.code,
             invoice.number,
