@@ -45,6 +45,17 @@ class PartnerCSVExport(models.TransientModel):
             )
         invoice = payment.invoice_ids
 
+        if payment.partner_type == 'customer':
+            if payment.payment_type == 'inbound':
+                amount = payment.amount
+            if payment.payment_type == 'outbound':
+                amount = - payment.amount
+        if payment.partner_type == 'supplier':
+            if payment.payment_type == 'inbound':
+                amount = - payment.amount
+            if payment.payment_type == 'outbound':
+                amount = payment.amount
+
         row = (
             payment.name,
             payment.journal_id.code,
@@ -53,7 +64,7 @@ class PartnerCSVExport(models.TransientModel):
             payment.partner_id.export_reference,
             invoice.number,
             invoice.journal_id.code,
-            str(payment.amount),
+            str(amount),
         )
 
         row = tuple(self.replace_line_return(s) for s in row)
