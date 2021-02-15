@@ -55,11 +55,29 @@ class PartnerCSVExport(models.TransientModel):
     _connector_model = "res.partner"
     _filename_template = "CLI_%Y%m%d_%H%M.csv"
 
-    def get_domain(self):
-        return [
-            ("write_date", ">=", self.start_date),
-            ("write_date", "<", self.end_date),
-        ]
+    def get_recordset(self):
+        # cf csv_export_invoice.py
+        exported_invoices = self.env["account.invoice"].search(
+            [
+                ("state", "!=", "draft"),
+                ("state", "!=", "cancel"),
+                ("date", ">=", self.start_date),
+                ("date", "<", self.end_date),
+            ]
+        )
+        # cf csv_export_payment.py
+        exported_payments = self.env["account.payment"].search(
+            [
+                ("journal_id.type", "=", "cash"),
+                ("state", "!=", "draft"),
+                ("payment_date", ">=", self.start_date),
+                ("payment_date", "<", self.end_date),
+            ]
+        )
+
+        invoice_partners = exported_invoices.mapped("partner_id")
+        payment_partners = exported_payments.mapped("partner_id")
+        return invoice_partners + payment_partners
 
     def get_headers(self):
         return HEADERS
