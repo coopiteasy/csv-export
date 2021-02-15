@@ -36,7 +36,12 @@ class BaseCSVExport(models.AbstractModel):
     start_date = fields.Date(string="Start Date", required=True)
     end_date = fields.Date(string="End Date", required=True)
 
+    def get_recordset(self):
+        """override this function for more complex record selection"""
+        return self.env[self._connector_model].search(self.get_domain())
+
     def get_domain(self):
+        """override this method to use simple domain on _model"""
         raise NotImplementedError
 
     def get_headers(self):
@@ -56,7 +61,7 @@ class BaseCSVExport(models.AbstractModel):
 
     @api.multi
     def get_headers_rows_array(self):
-        recordset = self.env[self._connector_model].search(self.get_domain())
+        recordset = self.get_recordset()
         _logger.info("fetching data for %s export" % self._connector_model)
         header = self.get_headers()
         rows = self.get_rows(recordset)
