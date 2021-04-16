@@ -1,1 +1,1 @@
-Import your payments as CSV flat files
+Import your payments as CSV flat files.
