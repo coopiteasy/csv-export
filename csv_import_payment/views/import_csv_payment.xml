@@ -7,30 +7,25 @@
     <data>
 
         <record id="csv_import_payment_view" model="ir.ui.view">
-            <field name="name">Partner CSV Import</field>
+            <field name="name">Payment CSV Import</field>
             <field name="model">csv.import.payment</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Import Payment CSV">
                     <group>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
-                        <field name="filename"/>
+                        <field name="import_mode"/>
+                        <field name="start_date" attrs="{'invisible': [('import_mode', '!=', 'sftp')]}"/>
+                        <field name="end_date" attrs="{'invisible': [('import_mode', '!=', 'sftp')]}"/>
+                        <field name="data" attrs="{'invisible': [('import_mode', '!=', 'file')]}"/>
                     </group>
                     <separator string="Report" colspan="4"/>
-                    <group colspan="4">
-                        <field name="data" filename="filename"/>
-                    </group>
+                    <!--                    <group colspan="4">-->
+                    <!--                        <field name="data" filename="filename"/>-->
+                    <!--                    </group>-->
                     <footer>
-                        <button name="action_manual_import_base"
-                                string="Generate Payment CSV" type="object"
+                        <button name="action_import_payment_data"
+                                string="Import Payments CSV" type="object"
                                 icon="gtk-execute" class="oe_highlight"/>
-                        <button name="action_send_to_backend_base"
-                                string="Send to SFTP Server"
-                                type="object"
-                                class="oe_highlight"
-                                attrs="{'invisible':[('data','=',False)]}"
-                        />
                     </footer>
 
                 </form>
@@ -48,11 +43,12 @@
             <field name="target">new</field>
         </record>
 
+        <!-- todo extract menu points from import base-->
         <menuitem
                 id="menu_csv_import_payment"
                 name="Import Payment CSV"
                 action="action_csv_import_payment"
-                parent="csv_import_base.menu_csv_import_base"
+                parent="csv_export_base.menu_csv_export_base"
                 sequence="310"
         />
     </data>
