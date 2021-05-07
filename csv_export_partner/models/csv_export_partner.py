@@ -125,7 +125,7 @@ class PartnerCSVExport(models.TransientModel):
 
         row = (
             partner.export_reference,
-            partner.name,
+            "%s %s" % (partner.lastname, partner.firstname),
             company,
             partner.street,
             partner.street2,
