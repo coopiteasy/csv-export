@@ -281,3 +281,10 @@ class PaymentCSVImport(models.TransientModel):
             self.backend.add(file_name, data, directory=archive_dir)
             _logger.info("moved %s to %s" % (file_name, archive_dir))
             self.backend.delete(file_name)
+
+    @api.model
+    def cron_daily_import(self):
+        import_wiz = self.create({
+            "import_mode": "sftp"
+        })
+        import_wiz.action_import_payment_data()
