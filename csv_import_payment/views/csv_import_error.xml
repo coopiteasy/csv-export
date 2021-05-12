@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_csv_import_error_form" model="ir.ui.view">
+        <field name="name">view_csv_import_error_form</field>
+        <field name="model">csv.import.error</field>
+        <field name="arch" type="xml">
+            <form string="csv_import_error_form">
+                <sheet>
+                    <group>
+                        <field name="file_name"/>
+                        <field name="line_no"/>
+                        <field name="line_content"/>
+                        <field name="error_message"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_csv_import_error_tree" model="ir.ui.view">
+        <field name="name">view_csv_import_error_tree</field>
+        <field name="model">csv.import.error</field>
+        <field name="arch" type="xml">
+            <tree string="csv_import_error_tree">
+                <field name="file_name"/>
+                <field name="line_no"/>
+                <field name="line_content"/>
+                <field name="error_message"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

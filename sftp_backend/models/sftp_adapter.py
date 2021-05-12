@@ -11,9 +11,6 @@ import os
 from binascii import hexlify
 from contextlib import contextmanager
 
-from openerp import _
-from openerp.exceptions import UserError
-
 _logger = logging.getLogger(__name__)
 
 try:
@@ -31,7 +28,7 @@ def agent_auth(transport, username):
     agent = paramiko.Agent()
     agent_keys = agent.get_keys()
     if not agent_keys:
-        raise UserError(_("Could not load private key from agent"))
+        raise IOError("Could not load private key from agent")
 
     for key in agent_keys:
         _logger.info(
@@ -44,7 +41,7 @@ def agent_auth(transport, username):
         except paramiko.SSHException:
             _logger.info("... failed.")
 
-    raise UserError(_("""Could not authenticate to sftp server"""))
+    raise IOError("""Could not authenticate to sftp server""")
 
 
 def key_file_auth(transport, key_file, username):
@@ -65,7 +62,7 @@ def key_file_auth(transport, key_file, username):
         except paramiko.SSHException:
             _logger.info("... failed")
 
-    raise UserError(_("""Could not authenticate to sftp server"""))
+    raise IOError("""Could not authenticate to sftp server""")
 
 
 @contextmanager
@@ -75,7 +72,7 @@ def sftp(collection):
     try:
         transport.start_client(timeout=10)
     except paramiko.SSHException:
-        raise UserError(_("""SSH negotiation failed"""))
+        raise IOError("""SSH negotiation failed""")
 
     if collection.auth_method == "agent":
         agent_auth(transport, collection.username)
@@ -146,3 +143,17 @@ class SftpAdapter:
     def delete(self, path):
         with sftp(self) as client:
             return client.remove(path)
+
+
+if __name__ == "__main__":
+    adapter = SftpAdapter(
+        "coopiteasy",
+        "odoo-bob.provelo.org",
+        auth_method="key_file",
+        key_file="/Users/roke/.ssh/id_ed25519",
+    )
+    print(adapter.list("odoo-bob"))
+    print(adapter.list("odoo-bob/bob-out-test"))
+    print(adapter.list("odoo-bob/bob-out-test/*.CSV"))
+    # file = adapter.get("odoo-bob/bob-out/BOBPAI202104141448.CSV")
+    # adapter.add("odoo-bob/bob-out-test/BOBPAI202104141448.CSV", file)

@@ -78,6 +78,7 @@ class SFTPBackend(models.Model):
 
 
 class BackendSFTPLine(models.Model):
+    # todo rename backend.sftp.io
     _name = "backend.sftp.export"
 
     backend_id = fields.Many2one(
@@ -89,21 +90,25 @@ class BackendSFTPLine(models.Model):
         string="Model",
         required=True,
         domain=[
-            ("model", "ilike", "csv.export.%"),
-            ("model", "ilike", "csv.import.%"),
             ("model", "!=", "csv.export.base"),
             ("model", "!=", "csv.export.history"),
+            "|",
+            ("model", "ilike", "csv.export.%"),
+            ("model", "ilike", "csv.import.%"),
         ],
-        help="""only csv.export.* models """,
+        help="""only csv.export.* and csv.import.* models """,
     )
     active = fields.Boolean(string="Active", default=True)
 
     @api.multi
-    def add(self, filename, data):
+    def add(self, filename, data, directory=None):
         for export in self:
             backend = export.backend_id
             adapter = backend.get_adapter()
-            path = join(export.path, filename)
+            if directory:
+                path = join(directory, filename)
+            else:
+                path = join(export.path, filename)
             _logger.info("{} - add to {}".format(backend.name, path))
             adapter.add(path, data)
 
@@ -120,8 +125,8 @@ class BackendSFTPLine(models.Model):
         self.ensure_one()
         backend = self.backend_id
         adapter = backend.get_adapter()
-        _logger.info("{} - list {}".format(self.name, path))
-        return adapter.get(path)
+        _logger.info("{} - list {}".format(backend.name, path))
+        return adapter.list(path)
 
     def delete(self, filename):
         for export in self:
