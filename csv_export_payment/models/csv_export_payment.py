@@ -32,6 +32,7 @@ class PaymentCSVExport(models.TransientModel):
             ("payment_date", ">=", self.start_date),
             ("payment_date", "<", self.end_date),
         ]
+
     # est-ce que les paiments peuvent rester en draft plusieurs jours?
 
     def get_headers(self):

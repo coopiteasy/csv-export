@@ -14,14 +14,9 @@
                 <form string="Import Payment CSV">
                     <group>
                         <field name="import_mode"/>
-                        <field name="start_date" attrs="{'invisible': [('import_mode', '!=', 'sftp')]}"/>
-                        <field name="end_date" attrs="{'invisible': [('import_mode', '!=', 'sftp')]}"/>
                         <field name="data" attrs="{'invisible': [('import_mode', '!=', 'file')]}"/>
                     </group>
                     <separator string="Report" colspan="4"/>
-                    <!--                    <group colspan="4">-->
-                    <!--                        <field name="data" filename="filename"/>-->
-                    <!--                    </group>-->
                     <footer>
                         <button name="action_import_payment_data"
                                 string="Import Payments CSV" type="object"

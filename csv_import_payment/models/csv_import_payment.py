@@ -11,6 +11,7 @@ from datetime import datetime, date, timedelta
 
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
+
 _logger = logging.getLogger(__name__)
 
 try:
@@ -50,58 +51,112 @@ class PaymentCSVImport(models.TransientModel):
     _connector_model = "account.payment"
     _filename_template = "BOBPAI%Y%m%d....\.CSV"
 
-    def _default_start_date(self):
-        yesterday = date.today() - timedelta(days=1)
-        return fields.Date.to_string(yesterday)
-
-    def _default_end_date(self):
-        return fields.Date.today()
-
     import_mode = fields.Selection(
         string="Import Mode",
         selection=[("csv_file", "CSV File"), ("sftp", "SFTP Server")],
         default="csv_file",
         required=True,
     )
-    start_date = fields.Date(
-        string="Start Date",
-        default=_default_start_date,
-    )
-    end_date = fields.Date(
-        string="End Date",
-        default=_default_end_date,
-    )
     data = fields.Binary(string="CSV")
+    backend = fields.Many2one(
+        comodel_name="backend.sftp.export",
+        string="Backend",
+        compute="_compute_backend",
+    )
 
-    def _fetch_file_from_sftp(self):
-        io_conf = self.env["backend.sftp.export"].search(
-            [
-                ("active", "=", True),
-                ("backend_id.active", "=", True),
-                ("model_id.model", "=", self._name),
-            ]
-        )
-        if not io_conf:
-            raise ValidationError(
-                _("No sftp server configured for this export.")
+    @api.multi
+    def _compute_backend(self):
+        for csv_export in self:
+            backend = self.env["backend.sftp.export"].search(
+                [
+                    ("active", "=", True),
+                    ("backend_id.active", "=", True),
+                    ("model_id.model", "=", csv_export._name),
+                ]
             )
-        if len(io_conf) > 1:
-            raise ValidationError(
-                _("Imports only support 1 configuration per model")
-            )
+            if not backend:
+                raise ValidationError(
+                    _("No sftp server configured for this export.")
+                )
+            if len(backend) > 1:
+                raise ValidationError(
+                    _("Imports only support 1 configuration per model")
+                )
+            csv_export.backend = backend
 
-        directory_files = io_conf.list(io_conf.path)
-        fetch_day = fields.Date.from_string(self.start_date)
-        fetch_pattern = fetch_day.strftime(self._filename_template)
-        file_names = [fn for fn in directory_files if re.match(fetch_pattern, fn)]
-        if file_names:
-            _logger.info("fetching file %s from sftp backend" % file_names)
-            return io_conf.get(file_names.pop())
+    @api.multi
+    def action_import_payment_data(self):
+        self.ensure_one()
+        _logger.info("Loading csv file")
+
+        if self.import_mode == "csv_file":
+            return self._import_csv_file()
+        elif self.import_mode == "sftp":
+            return self._import_sftp_files()
         else:
-            _logger.warn("no file %s on sftp backend" % file_names)
-            raise ValueError(_("No files for day %s" % self.start_date))
+            raise NotImplementedError(
+                "Unsupported import mode %s" % self.import_mode
+            )
 
-    def _prepare_payment_data(self, csv_content):
+    @api.multi
+    def _import_csv_file(self):
+        csv_content = base64.b64decode(self.data)
+        payment_data, errors = self._prepare_payment_data(csv_content)
+        if errors:
+            return self._redirect_to_errors(errors)
+        else:
+            payments = self._create_payments(payment_data)
+            return self._redirect_to_payments(payments)
+
+    @api.multi
+    def _import_sftp_files(self):
+        file_names = self.backend.list(self.backend.path)
+        errors = self.env["csv.import.error"]
+        payments = self.env["account.payment"]
+        for file_name in file_names:
+            _logger.info("fetching file %s from sftp backend" % file_name)
+            csv_content = self.backend.get(file_name)
+            payment_data, errors = self._prepare_payment_data(
+                csv_content, file_name=file_name
+            )
+            if errors:
+                errors += errors
+            else:
+                payments += self._create_payments(payment_data)
+
+        if errors:
+            return self._redirect_to_errors(errors)
+        if not payments:
+            raise ValidationError(_("No payments to import."))
+        else:
+            self._archive_sftp_files(file_names)
+            return self._redirect_to_payments(payments)
+
+    def _redirect_to_errors(self, errors):
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Errors on CSV Import"),
+            "res_model": "csv.import.error",
+            "domain": [("id", "in", errors.ids)],
+            "view_type": "form",
+            "view_mode": "tree,form",
+            "context": self.env.context,
+            "target": "current",
+        }
+
+    def _redirect_to_payments(self, payments):
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Imported Payments"),
+            "res_model": "account.payment",
+            "domain": [("id", "in", payments.ids)],
+            "view_type": "form",
+            "view_mode": "tree,form",
+            "context": self.env.context,
+            "target": "current",
+        }
+
+    def _prepare_payment_data(self, csv_content, file_name="Uploaded file"):
         """
         csv content:
         - lines separator: \n
@@ -137,6 +192,7 @@ class PaymentCSVImport(models.TransientModel):
             if not partner:
                 errors += errors.create(
                     {
+                        "file_name": file_name,
                         "line_no": line_no,
                         "line_content": row,
                         "error_message": _(
@@ -153,6 +209,7 @@ class PaymentCSVImport(models.TransientModel):
             if not journal:
                 errors += errors.create(
                     {
+                        "file_name": file_name,
                         "line_no": line_no,
                         "line_content": row,
                         "error_message": _(
@@ -168,6 +225,7 @@ class PaymentCSVImport(models.TransientModel):
             except ValueError as e:
                 errors += errors.create(
                     {
+                        "file_name": file_name,
                         "line_no": line_no,
                         "line_content": row,
                         "error_message": _(
@@ -182,6 +240,7 @@ class PaymentCSVImport(models.TransientModel):
             except ValueError as e:
                 errors += errors.create(
                     {
+                        "file_name": file_name,
                         "line_no": line_no,
                         "line_content": row,
                         "error_message": _(
@@ -191,6 +250,7 @@ class PaymentCSVImport(models.TransientModel):
                     }
                 )
                 continue
+
             payments_data.append(
                 {
                     "payment_method_id": payment_method.id,
@@ -207,46 +267,17 @@ class PaymentCSVImport(models.TransientModel):
 
         return payments_data, errors
 
-    @api.multi
-    def action_import_payment_data(self):
-        self.ensure_one()
-        _logger.info("Loading csv file")
-        payment_obj = self.env["account.payment"]
-
-        if self.import_mode == "csv_file":
-            csv_content = base64.b64decode(self.data)
-        elif self.import_mode == "sftp":
-            csv_content = self._fetch_file_from_sftp()
-        else:
-            raise NotImplementedError(
-                "Unsupported import mode %s" % self.import_mode
-            )
-
-        payment_data, errors = self._prepare_payment_data(csv_content)
-
-        if errors:
-            return {
-                "type": "ir.actions.act_window",
-                "name": _("Errors on CSV Import"),
-                "res_model": "csv.import.error",
-                "domain": [("id", "in", errors.ids)],
-                "view_type": "form",
-                "view_mode": "tree,form",
-                "context": self.env.context,
-                "target": "current",
-            }
-
-        payments = [
-            payment_obj.create(payment_dict) for payment_dict in payment_data
-        ]
+    def _create_payments(self, payment_data):
+        payments = self.env["account.payment"]
+        for payment_dict in payment_data:
+            payments += self.env["account.payment"].create(payment_dict)
         _logger.info("Created %s payments from csv" % len(payments))
-        return {
-            "type": "ir.actions.act_window",
-            "name": _("Imported Payments"),
-            "res_model": "account.payment",
-            "domain": [("id", "in", [p.id for p in payments])],
-            "view_type": "form",
-            "view_mode": "tree,form",
-            "context": self.env.context,
-            "target": "current",
-        }
+        return payments
+
+    def _archive_sftp_files(self, file_names):
+        for file_name in file_names:
+            data = self.backend.get(file_name)
+            archive_dir = self.backend.path + "-processed"
+            self.backend.add(file_name, data, directory=archive_dir)
+            _logger.info("moved %s to %s" % (file_name, archive_dir))
+            self.backend.delete(file_name)

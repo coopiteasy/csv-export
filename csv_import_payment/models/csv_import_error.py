@@ -10,6 +10,9 @@ class CSVImportError(models.TransientModel):
     _name = "csv.import.error"
     _description = "Logs csv import error"
 
+    file_name = fields.Char(
+        string="File Name",
+    )
     line_no = fields.Integer(
         string="Line Number",
     )

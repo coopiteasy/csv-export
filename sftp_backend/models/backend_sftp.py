@@ -101,11 +101,14 @@ class BackendSFTPLine(models.Model):
     active = fields.Boolean(string="Active", default=True)
 
     @api.multi
-    def add(self, filename, data):
+    def add(self, filename, data, directory=None):
         for export in self:
             backend = export.backend_id
             adapter = backend.get_adapter()
-            path = join(export.path, filename)
+            if directory:
+                path = join(directory, filename)
+            else:
+                path = join(export.path, filename)
             _logger.info("{} - add to {}".format(backend.name, path))
             adapter.add(path, data)
 

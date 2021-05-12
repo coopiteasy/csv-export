@@ -11,6 +11,7 @@
             <form string="csv_import_error_form">
                 <sheet>
                     <group>
+                        <field name="file_name"/>
                         <field name="line_no"/>
                         <field name="line_content"/>
                         <field name="error_message"/>
@@ -25,6 +26,7 @@
         <field name="model">csv.import.error</field>
         <field name="arch" type="xml">
             <tree string="csv_import_error_tree">
+                <field name="file_name"/>
                 <field name="line_no"/>
                 <field name="line_content"/>
                 <field name="error_message"/>
