@@ -114,6 +114,8 @@ class BaseCSVExport(models.AbstractModel):
             try:
                 export.add(self.filename, data)
                 self._log_export(export.path, success=True)
+                now = fields.Datetime.now()
+                self.get_recordset().write({"export_to_sftp": now})
             except Exception as e:
                 _logger.error(e)
                 self._log_export(export.path, success=False)

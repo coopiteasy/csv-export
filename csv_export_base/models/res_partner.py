@@ -10,8 +10,11 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     _sql_constraints = [
-        ('partner_export_reference_unique', 'UNIQUE (export_reference)',
-         'The export reference must be unique!'),
+        (
+            "partner_export_reference_unique",
+            "UNIQUE (export_reference)",
+            "The export reference must be unique!",
+        ),
     ]
 
     def _default_export_reference(self):
