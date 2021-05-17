@@ -32,6 +32,7 @@ class PartnerCSVExport(models.TransientModel):
             ("payment_date", ">=", self.start_date),
             ("payment_date", "<", self.end_date),
         ]
+
     # est-ce que les paiments peuvent rester en draft plusieurs jours?
 
     def get_headers(self):
@@ -46,15 +47,15 @@ class PartnerCSVExport(models.TransientModel):
             )
         invoice = payment.invoice_ids
 
-        if payment.partner_type == 'customer':
-            if payment.payment_type == 'inbound':
+        if payment.partner_type == "customer":
+            if payment.payment_type == "inbound":
                 amount = payment.amount
-            if payment.payment_type == 'outbound':
-                amount = - payment.amount
-        if payment.partner_type == 'supplier':
-            if payment.payment_type == 'inbound':
-                amount = - payment.amount
-            if payment.payment_type == 'outbound':
+            if payment.payment_type == "outbound":
+                amount = -payment.amount
+        if payment.partner_type == "supplier":
+            if payment.payment_type == "inbound":
+                amount = -payment.amount
+            if payment.payment_type == "outbound":
                 amount = payment.amount
 
         row = (
