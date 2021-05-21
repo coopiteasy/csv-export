@@ -53,7 +53,7 @@ class PartnerCSVExport(models.TransientModel):
     _inherit = "csv.export.base"
     _description = "Export Partner CSV"
     _connector_model = "res.partner"
-    _filename_template = "CLI_%Y%m%d_%H%M.csv"
+    _filename_template = "CLI_%Y%m%d_%H%M_%S%f.csv"
 
     def get_recordset(self):
         # cf csv_export_invoice.py

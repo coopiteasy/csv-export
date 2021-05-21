@@ -23,7 +23,7 @@ class PartnerCSVExport(models.TransientModel):
     _inherit = "csv.export.base"
     _description = "Export Payment CSV"
     _connector_model = "account.payment"
-    _filename_template = "CASH_%Y%m%d_%H%M.csv"
+    _filename_template = "CASH_%Y%m%d_%H%M_%S%f.csv"
 
     def get_domain(self):
         return [

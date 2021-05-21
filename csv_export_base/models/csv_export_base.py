@@ -25,7 +25,7 @@ class BaseCSVExport(models.AbstractModel):
     _name = "csv.export.base"
     _description = "Export CSV Base"
     _connector_model = ""
-    _filename_template = "export_%Y%m%d_%H%M"
+    _filename_template = "export_%Y%m%d_%H%M_%S%f"
 
     def _default_filename(self):
         now = datetime.now()
