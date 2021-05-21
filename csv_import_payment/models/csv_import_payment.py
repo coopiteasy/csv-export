@@ -34,7 +34,7 @@ class PartnerCSVImport(models.TransientModel):
     _name = "csv.import.payment"
     _description = "Import Payment CSV"
     _connector_model = "account.payment"
-    _filename_template = "CASH_%Y%m%d_%H%M.csv"
+    _filename_template = "CASH_%Y%m%d_%H%M_%S%f.csv"
     # _filename_template = "CASH_%Y%m%d_%H%M.csv" # todo request same file name template
 
     def get_domain(self):
