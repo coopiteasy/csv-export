@@ -10,6 +10,7 @@ from openerp import fields, models
 
 class CSVExportHistory(models.Model):
     _name = "csv.export.history"
+    _order = "date desc"
 
     date = fields.Datetime(string="Date", required=True)
     path = fields.Char(string="Path", required=True)

@@ -26,14 +26,14 @@ class PartnerCSVExport(models.TransientModel):
     _filename_template = "CASH_%Y%m%d_%H%M_%S%f.csv"
 
     def get_domain(self):
+        # est-ce que les paiments peuvent rester en draft plusieurs jours?
+        #  => non, les paiements ne passent pas par l'état brouillon.
         return [
             ("journal_id.type", "=", "cash"),
             ("state", "!=", "draft"),
-            ("payment_date", ">=", self.start_date),
-            ("payment_date", "<", self.end_date),
+            ("create_date", ">=", self.start_date),
+            ("create_date", "<", self.end_date),
         ]
-
-    # est-ce que les paiments peuvent rester en draft plusieurs jours?
 
     def get_headers(self):
         return HEADERS
