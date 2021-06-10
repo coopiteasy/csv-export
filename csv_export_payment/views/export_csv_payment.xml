@@ -32,7 +32,6 @@
                                 attrs="{'invisible':[('data','=',False)]}"
                         />
                     </footer>
-
                 </form>
             </field>
         </record>
