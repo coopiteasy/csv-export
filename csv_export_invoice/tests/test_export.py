@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import logging
 
-from openerp.tests import common
+from odoo.tests import common
 
 _logger = logging.getLogger(__name__)
 
@@ -24,4 +23,4 @@ class TestCSVExport(common.TransactionCase):
         )
         ice.action_manual_export_base()
         # needs mocking
-        ice.action_send_to_backend_base()
+        # ice.action_send_to_backend_base()

@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from openerp import _, models
-from openerp.exceptions import ValidationError
+from odoo import _, models
+from odoo.exceptions import ValidationError
 
 HEADERS = (
     "journal",
