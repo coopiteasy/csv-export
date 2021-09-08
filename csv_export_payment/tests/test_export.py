@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import logging
 
-# from openerp.exceptions import ValidationError
-from openerp.tests import common
+# from odoo.exceptions import ValidationError
+from odoo.tests import common
 
 _logger = logging.getLogger(__name__)
 
@@ -27,4 +26,4 @@ class TestPaymentCSVExport(common.TransactionCase):
         # with self.assertRaises(ValidationError):
         #     ice.action_send_to_backend_base()
         # needs mocking
-        ice.action_send_to_backend_base()
+        # ice.action_send_to_backend_base()
