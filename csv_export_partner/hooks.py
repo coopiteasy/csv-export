@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 def set_default_export_reference(cr, registry):
     partner_obj = registry["res.partner"]
     partner_ids = partner_obj.search(cr, 1, [("export_reference", "=", False)])
