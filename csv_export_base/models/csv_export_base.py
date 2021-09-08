@@ -69,9 +69,7 @@ class BaseCSVExport(models.AbstractModel):
         data = self.get_headers_rows_array()
         file_data = StringIO()
         try:
-            _logger.info(
-                "writing {} lines to {}".format(len(data), self.filename)
-            )
+            _logger.info("writing {} lines to {}".format(len(data), self.filename))
             writer = CSVUnicodeWriter(file_data, delimiter="|")
             writer.writerows(data)
             file_value = file_data.getvalue()
@@ -100,9 +98,7 @@ class BaseCSVExport(models.AbstractModel):
             ]
         )
         if not exports:
-            raise ValidationError(
-                _("No sftp server configured for this export.")
-            )
+            raise ValidationError(_("No sftp server configured for this export."))
 
         for export in exports:
             data = base64.decodebytes(self.data)
@@ -121,7 +117,7 @@ class BaseCSVExport(models.AbstractModel):
         # use a cursor to make sure log is written to database in case an
         # exception and rollback occurs
         with api.Environment.manage():
-            with openerp.registry(self.env.cr.dbname).cursor() as new_cr:
+            with odoo.registry(self.env.cr.dbname).cursor() as new_cr:
                 env = api.Environment(new_cr, self.env.uid, self.env.context)
                 for export in self:
                     env["csv.export.history"].sudo().create(

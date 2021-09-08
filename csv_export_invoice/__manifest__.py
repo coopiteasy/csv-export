@@ -11,7 +11,7 @@
     ],
     "author": "Coop IT Easy SCRLfs",
     "summary": "Export your invoices as CSV flat files",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "data": [
         "data/cron.xml",

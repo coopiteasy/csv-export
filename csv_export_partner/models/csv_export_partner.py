@@ -107,15 +107,12 @@ class PartnerCSVExport(models.TransientModel):
         fiscal_position = partner.property_account_position_id
         if fiscal_position.name not in _FISCAL_POSITION_MAP:
             raise ValidationError(
-                _("Fiscal position %s is not implemented.")
-                % fiscal_position.name
+                _("Fiscal position %s is not implemented.") % fiscal_position.name
             )
         fiscal_position_code = _FISCAL_POSITION_MAP.get(fiscal_position.name)
 
         if partner.property_payment_term_id:
-            days = sorted(
-                partner.property_payment_term_id.line_ids.mapped("days")
-            )
+            days = sorted(partner.property_payment_term_id.line_ids.mapped("days"))
             days = days[0] if days else False
             payment_term = _PAYMENT_TERM_MAP.get(days)
 
@@ -124,7 +121,7 @@ class PartnerCSVExport(models.TransientModel):
 
         row = (
             partner.export_reference,
-            "%s %s" % (partner.lastname, partner.firstname),
+            "{} {}".format(partner.lastname, partner.firstname),
             company,
             partner.street,
             partner.street2,

@@ -17,9 +17,7 @@ class ResPartner(models.Model):
     ]
 
     def _default_export_reference(self):
-        return self.env["ir.sequence"].next_by_code(
-            "res.partner.export.reference"
-        )
+        return self.env["ir.sequence"].next_by_code("res.partner.export.reference")
 
     export_reference = fields.Char(
         string="Export Reference",

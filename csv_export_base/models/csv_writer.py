@@ -25,8 +25,7 @@ class CSVUnicodeWriter:
         row = (x or u"" for x in row)
 
         encoded_row = [
-            c.encode("utf-8") if isinstance(c, unicode) else c  # noqa
-            for c in row
+            c.encode("utf-8") if isinstance(c, unicode) else c for c in row  # noqa
         ]
 
         self.writer.writerow(encoded_row)

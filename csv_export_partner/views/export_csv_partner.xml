@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -13,23 +13,28 @@
             <field name="arch" type="xml">
                 <form string="Export Partner CSV">
                     <group>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
-                        <field name="filename"/>
+                        <field name="start_date" />
+                        <field name="end_date" />
+                        <field name="filename" />
                     </group>
-                    <separator string="Report" colspan="4"/>
+                    <separator string="Report" colspan="4" />
                     <group colspan="4">
-                        <field name="data" filename="filename"/>
+                        <field name="data" filename="filename" />
                     </group>
                     <footer>
-                        <button name="action_manual_export_base"
-                                string="Generate Partner CSV" type="object"
-                                icon="gtk-execute" class="oe_highlight"/>
-                        <button name="action_send_to_backend_base"
-                                string="Send to SFTP Server"
-                                type="object"
-                                class="oe_highlight"
-                                attrs="{'invisible': [('data','=',False)]}"
+                        <button
+                            name="action_manual_export_base"
+                            string="Generate Partner CSV"
+                            type="object"
+                            icon="gtk-execute"
+                            class="oe_highlight"
+                        />
+                        <button
+                            name="action_send_to_backend_base"
+                            string="Send to SFTP Server"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('data','=',False)]}"
                         />
                     </footer>
 
@@ -43,7 +48,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="csv_export_partner_view"/>
+            <field name="view_id" ref="csv_export_partner_view" />
             <field name="context">{}</field>
             <field name="target">new</field>
         </record>

@@ -33,9 +33,7 @@ def agent_auth(transport, username):
         raise UserError(_("Could not load private key from agent"))
 
     for key in agent_keys:
-        _logger.info(
-            "Trying ssh-agent key %s" % hexlify(key.get_fingerprint())
-        )
+        _logger.info("Trying ssh-agent key %s" % hexlify(key.get_fingerprint()))
         try:
             transport.auth_publickey(username, key)
             if transport.is_authenticated():
@@ -101,9 +99,7 @@ def sftp_mkdirs(client, path, mode=511):
 
 
 class SftpAdapter:
-    def __init__(
-        self, username, hostname, port=22, auth_method="agent", key_file=None
-    ):
+    def __init__(self, username, hostname, port=22, auth_method="agent", key_file=None):
         self.username = username
         self.hostname = hostname
         self.port = port

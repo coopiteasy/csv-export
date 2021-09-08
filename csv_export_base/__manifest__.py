@@ -7,7 +7,7 @@
     "depends": ["account", "sftp_backend"],
     "author": "Coop IT Easy SCRLfs",
     "summary": "Base to create module to export csv files.",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "data": [
         "data/data.xml",

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -8,10 +8,9 @@
         <field name="name">backend_sftp_view_tree</field>
         <field name="model">backend.sftp</field>
         <field name="arch" type="xml">
-            <tree name="backend_sftp_tree"
-                  string="Backend Configuration">
-                <field name="name"/>
-                <field name="active"/>
+            <tree name="backend_sftp_tree" string="Backend Configuration">
+                <field name="name" />
+                <field name="active" />
             </tree>
         </field>
     </record>
@@ -23,28 +22,38 @@
             <form string="backend_sftp_form">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object"
-                                class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button"
-                                   options='{"terminology": "active"}'/>
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                        >
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options='{"terminology": "active"}'
+                            />
                         </button>
                     </div>
                     <group>
-                        <field name="name"/>
-                        <field name="username"/>
-                        <field name="host"/>
-                        <field name="port"/>
-                        <field name="auth_method"/>
-                        <field name="key_file" attrs="{'invisible': [('auth_method', '!=', 'key_file')]}"/>
+                        <field name="name" />
+                        <field name="username" />
+                        <field name="host" />
+                        <field name="port" />
+                        <field name="auth_method" />
+                        <field
+                            name="key_file"
+                            attrs="{'invisible': [('auth_method', '!=', 'key_file')]}"
+                        />
                     </group>
                     <notebook>
                         <page name="exports" string="Exports">
                             <group>
                                 <field name="export_ids" nolabel="1">
                                     <tree name="sftp_exports" editable="bottom">
-                                        <field name="path"/>
-                                        <field name="model_id"/>
-                                        <field name="active"/>
+                                        <field name="path" />
+                                        <field name="model_id" />
+                                        <field name="active" />
                                     </tree>
                                 </field>
                             </group>
@@ -60,8 +69,7 @@
         <field name="model">backend.sftp</field>
         <field name="arch" type="xml">
             <search string="Active">
-                <field name="active" string="Active"
-                       domain="[('active', '=', True)]"/>
+                <field name="active" string="Active" domain="[('active', '=', True)]" />
             </search>
         </field>
     </record>
@@ -71,7 +79,7 @@
         <field name="res_model">backend.sftp</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" eval="False"/>
-        <field name="search_view_id" ref="backend_sftp_search_view"/>
+        <field name="view_id" eval="False" />
+        <field name="search_view_id" ref="backend_sftp_search_view" />
     </record>
 </odoo>
