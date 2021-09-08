@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 # Heavily inspired from:
@@ -11,8 +10,8 @@ import os
 from binascii import hexlify
 from contextlib import contextmanager
 
-from openerp import _
-from openerp.exceptions import UserError
+from odoo import _
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
