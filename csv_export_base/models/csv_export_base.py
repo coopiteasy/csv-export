@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
@@ -6,19 +5,15 @@
 import base64
 import logging
 from datetime import date, datetime, timedelta
+from io import StringIO
 
-import openerp
-from openerp import _, api, fields, models
-from openerp.exceptions import ValidationError
+import odoo
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 from .csv_writer import CSVUnicodeWriter
 
 _logger = logging.getLogger(__name__)
-
-try:
-    from cStringIO import StringIO
-except ImportError as err:
-    _logger.debug(err)
 
 
 class BaseCSVExport(models.AbstractModel):
@@ -80,7 +75,7 @@ class BaseCSVExport(models.AbstractModel):
             writer = CSVUnicodeWriter(file_data, delimiter="|")
             writer.writerows(data)
             file_value = file_data.getvalue()
-            self.data = base64.encodestring(file_value)
+            self.data = base64.encodebytes(file_value)
         finally:
             file_data.close()
         return {
@@ -110,7 +105,7 @@ class BaseCSVExport(models.AbstractModel):
             )
 
         for export in exports:
-            data = base64.decodestring(self.data)
+            data = base64.decodebytes(self.data)
             try:
                 export.add(self.filename, data)
                 self._log_export(export.path, success=True)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 #    CSV data formating inspired from
@@ -8,13 +7,9 @@
 import codecs
 import csv
 import logging
+from io import StringIO
 
 _logger = logging.getLogger(__name__)
-
-try:
-    from cStringIO import StringIO
-except ImportError as err:
-    _logger.debug(err)
 
 
 class CSVUnicodeWriter:
