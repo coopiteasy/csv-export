@@ -10,10 +10,10 @@ _logger = logging.getLogger(__name__)
 
 
 class TestPartnerCSVExport(common.TransactionCase):
+    # code coverage
     def test_get_rows(self):
-        ICE = self.env["csv.export.partner"]
-        partner = self.env["res.partner"].browse(46887)  # use demo data
-        rows = ICE.get_rows(partner)
+        partner = self.env.ref("base.partner_demo")
+        rows = self.env["csv.export.partner"].get_rows(partner)
         for row in rows:
             _logger.info(row)
 
@@ -26,4 +26,24 @@ class TestPartnerCSVExport(common.TransactionCase):
         # ice.action_send_to_backend_base()
 
     def test_cron(self):
-        self.env["csv.export.partner"].cron_daily_export()
+        export_model = self.env["ir.model"].search(
+            [("model", "=", "csv.export.partner")]
+        )
+        backend = self.env["backend.sftp"].create(
+            {
+                "name": "test backend",
+                "username": "test name",
+                "host": "test.org",
+                "port": 2222,
+                "auth_method": "agent",
+            }
+        )
+        self.env["backend.sftp.export"].create(
+            {
+                "backend_id": backend.id,
+                "model_id": export_model.id,
+                "path": "path/to/dir",
+            }
+        )
+        # needs moking
+        # self.env["csv.export.partner"].cron_daily_export()

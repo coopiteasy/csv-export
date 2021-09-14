@@ -1,10 +1,9 @@
 # Copyright 2020 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
-#    CSV data formating inspired from
+#    CSV data formatting inspired from
 # http://docs.python.org/2.7/library/csv.html?highlight=csv#examples
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-import codecs
 import csv
 import logging
 from io import StringIO
@@ -18,22 +17,15 @@ class CSVUnicodeWriter:
         self.queue = StringIO()
         self.writer = csv.writer(self.queue, dialect=dialect, **kwargs)
         self.stream = f
-        self.encoder = codecs.getincrementalencoder(encoding)()
+        # self.encoder = codecs.getincrementalencoder(encoding)()
 
     def writerow(self, row):
         # we ensure that we do not try to encode none or bool
-        row = (x or u"" for x in row)
+        row = (x or "" for x in row)
 
-        encoded_row = [
-            c.encode("utf-8") if isinstance(c, unicode) else c for c in row  # noqa
-        ]
-
-        self.writer.writerow(encoded_row)
+        self.writer.writerow(row)
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
-        data = data.decode("utf-8")
-        # ... and reencode it into the target encoding
-        data = self.encoder.encode(data)
         # write to the target stream
         self.stream.write(data)
         # empty queue

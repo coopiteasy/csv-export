@@ -120,7 +120,7 @@ class PartnerCSVExport(models.TransientModel):
             payment_term = ""
 
         row = (
-            partner.export_reference,
+            partner.get_export_reference(),
             "{} {}".format(partner.lastname, partner.firstname),
             company,
             partner.street,

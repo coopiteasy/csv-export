@@ -50,7 +50,7 @@ class InvoiceCSVExport(models.TransientModel):
         line = record
         invoice = line.invoice_id
 
-        if invoice.reference_type == "bba":
+        if invoice.company_id.invoice_reference_type == "structured":
             reference = invoice.reference
         else:
             reference = ""
@@ -84,7 +84,7 @@ class InvoiceCSVExport(models.TransientModel):
             invoice.number,
             invoice.date_invoice,
             invoice.date_due,
-            invoice.partner_id.export_reference,
+            invoice.partner_id.get_export_reference(),
             reference,
             invoice.origin,
             str(total_amount),

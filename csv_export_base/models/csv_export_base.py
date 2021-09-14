@@ -49,7 +49,7 @@ class BaseCSVExport(models.AbstractModel):
         return [self.get_row(record) for record in recordset]
 
     def replace_line_return(self, s):
-        if type(s) is str or type(s) is unicode:  # noqa
+        if type(s) is str:
             return s.replace("\n", " ").strip()
         else:
             return s
@@ -72,7 +72,7 @@ class BaseCSVExport(models.AbstractModel):
             _logger.info("writing {} lines to {}".format(len(data), self.filename))
             writer = CSVUnicodeWriter(file_data, delimiter="|")
             writer.writerows(data)
-            file_value = file_data.getvalue()
+            file_value = file_data.getvalue().encode("utf-8")
             self.data = base64.encodebytes(file_value)
         finally:
             file_data.close()
@@ -134,7 +134,7 @@ class BaseCSVExport(models.AbstractModel):
 
     @api.model
     def cron_daily_export(self):
-        model = self._model._name
+        model = self._name
         end_date = date.today()
         start_date = end_date - timedelta(days=1)
         cep = self.env[model].create(

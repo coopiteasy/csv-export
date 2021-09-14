@@ -4,7 +4,7 @@
 {
     "name": "Export Partner CSV",
     "version": "12.0.1.0.0",
-    "depends": ["csv_export_base"],
+    "depends": ["csv_export_base", "partner_firstname", "partner_fax"],
     "author": "Coop IT Easy SCRLfs",
     "summary": "Export your partners as CSV flat files",
     "website": "https://coopiteasy.be",
@@ -16,5 +16,4 @@
         "views/menu.xml",
     ],
     "installable": True,
-    "post_init_hook": "set_default_export_reference",
 }

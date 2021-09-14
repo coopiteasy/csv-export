@@ -17,6 +17,7 @@ _logger = logging.getLogger(__name__)
 
 class SFTPBackend(models.Model):
     _name = "backend.sftp"
+    _description = "SFTP backend"
 
     name = fields.Char(string="Name", compute="_compute_name")
     username = fields.Char(
@@ -29,7 +30,7 @@ class SFTPBackend(models.Model):
     auth_method = fields.Selection(
         string="Authentication Method",
         selection=[("agent", "SSH Agent"), ("key_file", "Key File")],
-        default="rsa_key",
+        default="agent",
         required=True,
         help="""
         * Agent: will use ssh agent to retrieve private keys
@@ -78,6 +79,7 @@ class SFTPBackend(models.Model):
 
 class BackendSFTPLine(models.Model):
     _name = "backend.sftp.export"
+    _description = "Configured SFTP Export"
 
     backend_id = fields.Many2one(
         comodel_name="backend.sftp", string="Backend", required=True
@@ -88,6 +90,7 @@ class BackendSFTPLine(models.Model):
         string="Model",
         required=True,
         domain=[
+            "|",
             ("model", "ilike", "csv.export.%"),
             ("model", "ilike", "csv.import.%"),
             ("model", "!=", "csv.export.base"),
