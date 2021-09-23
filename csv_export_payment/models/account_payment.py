@@ -11,5 +11,5 @@ class AccountPayment(models.Model):
 
     export_to_sftp = fields.Datetime(
         string="Exported to SFTP",
-        default=False,
+        copy=False,
     )

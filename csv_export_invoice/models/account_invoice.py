@@ -10,5 +10,6 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     export_to_sftp = fields.Datetime(
+        copy=False,
         string="Exported to SFTP",
     )
