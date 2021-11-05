@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <menuitem
+        id="menu_csv_export_base"
+        name="CSV Exchanges"
+        parent="account.menu_finance_reports"
+        sequence="200"
+    />
+    <menuitem
+        id="csv_export_history_menu"
+        name="CSV Exchange History"
+        action="csv_export_history_action"
+        parent="menu_csv_export_base"
+        sequence="1000"
+    />
+</odoo>

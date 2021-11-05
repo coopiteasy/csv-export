@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <!-- todo only show for accounting roles -->
+                <page name="technical_fields" string="Technical Fields">
+                    <group>
+                        <field name="_export_reference" />
+                        <field name="export_to_sftp" />
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

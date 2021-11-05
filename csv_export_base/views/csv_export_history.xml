@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="csv_export_history_view_tree" model="ir.ui.view">
+        <field name="name">csv_export_history_view_tree</field>
+        <field name="model">csv.export.history</field>
+        <field name="arch" type="xml">
+            <tree string="csv_export_history_tree">
+                <field name="date" />
+                <field name="path" />
+                <field name="model" />
+                <field name="filename" />
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="success" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="csv_export_history_action" model="ir.actions.act_window">
+        <field name="name">CSV Export History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">csv.export.history</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
