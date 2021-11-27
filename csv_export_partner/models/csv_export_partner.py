@@ -130,7 +130,7 @@ class PartnerCSVExport(models.TransientModel):
             lang,
             partner.mobile,
             partner.phone,
-            partner.fax,
+            "",  # dummy value for fax
             fiscal_position_code,
             partner.vat,
             iban,
