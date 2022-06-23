@@ -14,7 +14,7 @@ Export CSV Base
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-coopiteasy%2Fcsv--connector-lightgray.png?logo=github
-    :target: https://github.com/coopiteasy/csv-connector/tree/9.0/csv_export_base
+    :target: https://github.com/coopiteasy/csv-connector/tree/12.0/csv_export_base
     :alt: coopiteasy/csv-connector
 
 |badge1| |badge2| |badge3| 
@@ -31,11 +31,12 @@ Usage
 =====
 
 * add a module ``csv_export_<model>``
-* add a transient model ``csv.export.<model>`` inheriting from ``csv.export.base`` and 
+* add a transient model ``csv.export.<model>`` inheriting from ``csv.export.base`` and
    * implement ``get_domain``, ``get_headers`` and ``get_rows``
    * set ``_connector_model`` (eg. "account.payment")
    * set ``_filename_template`` (eg. "CASH_%Y%m%d_%H%M.csv")
 * add a view and menu for that model (examples in module ``account_export_payment``)
+* add a boolean field ``exported_to_sftp`` on exported model.
 * If needed configure a sftp server in the menu Configuration > SFTP Servers
    * add export line referencing the csv.export.<model> you created.
 
@@ -43,7 +44,11 @@ Known issues / Roadmap
 ======================
 
 This module was created specifically for Pro Velo ASBL.
-It should be made more generic and less dependent on other modules.
+
+It should be
+- more generic,
+- less dependent on other modules,
+- generic for export AND imports
 
 In v12 version, it should be based on top of the OCA connector.
 
@@ -53,7 +58,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/coopiteasy/csv-connector/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/coopiteasy/csv-connector/issues/new?body=module:%20csv_export_base%0Aversion:%209.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/coopiteasy/csv-connector/issues/new?body=module:%20csv_export_base%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -73,6 +78,6 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
-This module is part of the `coopiteasy/csv-connector <https://github.com/coopiteasy/csv-connector/tree/9.0/csv_export_base>`_ project on GitHub.
+This module is part of the `coopiteasy/csv-connector <https://github.com/coopiteasy/csv-connector/tree/12.0/csv_export_base>`_ project on GitHub.
 
 You are welcome to contribute.
