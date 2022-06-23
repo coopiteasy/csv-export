@@ -84,6 +84,12 @@ class PartnerCSVExport(models.TransientModel):
     def get_row(self, record):
         partner = record
 
+        # company partners do not have a firstname
+        if partner.firstname:
+            name = "{} {}".format(partner.lastname, partner.firstname)
+        else:
+            name = partner.lastname
+
         if partner.parent_id:
             company = partner.parent_id.name
         else:
@@ -121,7 +127,7 @@ class PartnerCSVExport(models.TransientModel):
 
         row = (
             partner.get_export_reference(),
-            "{} {}".format(partner.lastname, partner.firstname),
+            name,
             company,
             partner.street,
             partner.street2,
