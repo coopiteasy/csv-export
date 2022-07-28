@@ -26,7 +26,7 @@
                             name="action_manual_export_base"
                             string="Generate Partner CSV"
                             type="object"
-                            icon="fa-cog"
+                            icon="fa-refresh"
                             class="oe_highlight"
                         />
                         <button
