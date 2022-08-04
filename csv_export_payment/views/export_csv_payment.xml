@@ -26,7 +26,7 @@
                             name="action_manual_export_base"
                             string="Generate Payment CSV"
                             type="object"
-                            icon="gtk-execute"
+                            icon="fa-refresh"
                             class="oe_highlight"
                         />
                         <button
@@ -34,6 +34,7 @@
                             string="Send to SFTP Server"
                             type="object"
                             class="oe_highlight"
+                            icon="fa-cloud-upload"
                             attrs="{'invisible':[('data','=',False)]}"
                         />
                     </footer>

@@ -26,7 +26,7 @@
                             name="action_manual_export_base"
                             string="Generate Invoice CSV"
                             type="object"
-                            icon="gtk-execute"
+                            icon="fa-refresh"
                             class="oe_highlight"
                         />
                         <button
@@ -35,6 +35,7 @@
                             type="object"
                             class="oe_highlight"
                             attrs="{'invisible':[('data','=',False)]}"
+                            icon="fa-cloud-upload"
                         />
                     </footer>
 

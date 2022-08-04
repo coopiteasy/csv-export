@@ -5,7 +5,7 @@
 import base64
 import logging
 from datetime import date, datetime, timedelta
-from io import StringIO
+from io import BytesIO
 
 import odoo
 from odoo import _, api, fields, models
@@ -67,12 +67,12 @@ class BaseCSVExport(models.AbstractModel):
         """Generate CSV"""
         self.ensure_one()
         data = self.get_headers_rows_array()
-        file_data = StringIO()
+        file_data = BytesIO()
         try:
             _logger.info("writing {} lines to {}".format(len(data), self.filename))
             writer = CSVUnicodeWriter(file_data, delimiter="|")
             writer.writerows(data)
-            file_value = file_data.getvalue().encode("utf-8")
+            file_value = file_data.getvalue()
             self.data = base64.encodebytes(file_value)
         finally:
             file_data.close()
