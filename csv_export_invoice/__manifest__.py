@@ -1,4 +1,4 @@
-# Copyright 2020 Coop IT Easy SCRL fs
+# Copyright 2020 Coop IT Easy SC
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
@@ -9,7 +9,7 @@
         "l10n_be_invoice_bba",
         "provelo_analytic_account",
     ],
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "summary": "Export your invoices as CSV flat files",
     "website": "https://coopiteasy.be",
     "license": "AGPL-3",

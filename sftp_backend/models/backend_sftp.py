@@ -1,4 +1,4 @@
-# Copyright 2020 Coop IT Easy SCRL fs
+# Copyright 2020 Coop IT Easy SC
 #   Robin Keunen <robin@coopiteasy.be>
 # Heavily inspired from:
 # https://github.com/OCA/storage/blob/12.0/storage_backend_sftp/components/sftp_adapter.py  # noqa

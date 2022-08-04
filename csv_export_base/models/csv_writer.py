@@ -1,4 +1,4 @@
-# Copyright 2020 Coop IT Easy SCRL fs
+# Copyright 2020 Coop IT Easy SC
 #   Robin Keunen <robin@coopiteasy.be>
 #    CSV data formatting inspired from
 # http://docs.python.org/2.7/library/csv.html?highlight=csv#examples
