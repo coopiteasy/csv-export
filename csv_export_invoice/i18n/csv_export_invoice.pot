@@ -1,0 +1,133 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* csv_export_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: csv_export_invoice
+#: model:ir.actions.server,name:csv_export_invoice.csv_export_invoice_cron_ir_actions_server
+#: model:ir.cron,cron_name:csv_export_invoice.csv_export_invoice_cron
+#: model:ir.cron,name:csv_export_invoice.csv_export_invoice_cron
+msgid "\n"
+"                Generate daily invoice csv and send to sftp server\n"
+"            "
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__data
+msgid "CSV"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_account_tax__export_code
+msgid "Export Code"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.actions.act_window,name:csv_export_invoice.action_csv_export_invoice
+#: model:ir.model,name:csv_export_invoice.model_csv_export_invoice
+#: model:ir.ui.menu,name:csv_export_invoice.menu_csv_export_invoice
+#: model_terms:ir.ui.view,arch_db:csv_export_invoice.csv_export_invoice_view
+msgid "Export Invoice CSV"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_account_invoice__export_to_sftp
+msgid "Exported to SFTP"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__filename
+msgid "File Name"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model_terms:ir.ui.view,arch_db:csv_export_invoice.csv_export_invoice_view
+msgid "Generate Invoice CSV"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__id
+msgid "ID"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model,name:csv_export_invoice.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model_terms:ir.ui.view,arch_db:csv_export_invoice.csv_export_invoice_view
+msgid "Report"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model_terms:ir.ui.view,arch_db:csv_export_invoice.csv_export_invoice_view
+msgid "Send to SFTP Server"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model,name:csv_export_invoice.model_account_tax
+msgid "Tax"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model_terms:ir.ui.view,arch_db:csv_export_invoice.invoice_form
+msgid "Technical Fields"
+msgstr ""
+
+#. module: csv_export_invoice
+#: code:addons/csv_export_invoice/models/csv_export_invoice.py:61
+#, python-format
+msgid "This module does not allow several taxes per invoice line"
+msgstr ""
+
