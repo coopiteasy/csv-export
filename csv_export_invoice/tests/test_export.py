@@ -5,7 +5,6 @@ import base64
 import datetime
 import logging
 
-from odoo.fields import Date
 from odoo.tests import common
 
 _logger = logging.getLogger(__name__)
@@ -19,7 +18,6 @@ class TestCSVExport(common.SavepointCase):
 
         company = cls.env.ref("base.main_company")
         euro = cls.env.ref("base.EUR")
-        product = cls.env.ref("product.product_product_3")
         uom = cls.env.ref("uom.product_uom_unit")
         partner = cls.env.ref("base.res_partner_12")
 
@@ -35,6 +33,12 @@ class TestCSVExport(common.SavepointCase):
             limit=1,
         )
 
+        cls.product = cls.env["product.product"].create(
+            {
+                "name": "Commune Présence",
+            }
+        )
+
         cls.invoice = cls.env["account.invoice"].create(
             {
                 "company_id": company.id,
@@ -44,10 +48,10 @@ class TestCSVExport(common.SavepointCase):
                         0,
                         0,
                         {
-                            "name": "Computer SC234",
+                            "name": "Commune présence",
                             "price_unit": 450.0,
                             "quantity": 1.0,
-                            "product_id": product.id,
+                            "product_id": cls.product.id,
                             "uom_id": uom.id,
                             "account_id": revenue_acc.id,
                         },
@@ -83,13 +87,15 @@ class TestCSVExport(common.SavepointCase):
             "|base_amount|vat_code|vat_amount|line_comment"
             "|ana1|ana2|ana3|ana4|ana5|ana6\r"
         )
-        expected_invoice_line_start = "{code}|{reference}|{date_invoice}".format(
-            code=self.invoice.journal_id.code,
-            reference=self.invoice.number,
-            date_invoice=Date.to_string(self.invoice.date_invoice),
-        )
+        line_items = invoice_line.split("|")
+        journal = line_items[0]
+        reference = line_items[1]
+        line_comment = line_items[12]
+
         self.assertEquals(expected_header, header)
-        self.assertTrue(invoice_line.startswith(expected_invoice_line_start))
+        self.assertEquals(journal, self.invoice.journal_id.code)
+        self.assertEquals(reference, self.invoice.number)
+        self.assertEquals(line_comment, self.product.name)
         self.assertEquals(eol, "")
 
         # needs mocking
