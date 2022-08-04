@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Export Payment CSV",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "depends": ["csv_export_base"],
     "author": "Coop IT Easy SC",
     "summary": "Export your payments as CSV flat files",
