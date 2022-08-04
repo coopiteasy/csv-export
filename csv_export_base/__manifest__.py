@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Export CSV Base",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "depends": ["account", "sftp_backend"],
     "author": "Coop IT Easy SC",
     "summary": "Base to create module to export csv files.",
