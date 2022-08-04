@@ -1,0 +1,196 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sftp_backend
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sftp_backend
+#: model:ir.model.fields,help:sftp_backend.field_backend_sftp__auth_method
+msgid "\n"
+"        * Agent: will use ssh agent to retrieve private keys\n"
+"        * Key File: load a key at given path.\n"
+"        "
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__active
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__active
+#: model_terms:ir.ui.view,arch_db:sftp_backend.backend_sftp_search_view
+msgid "Active"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__auth_method
+msgid "Authentication Method"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__backend_id
+msgid "Backend"
+msgstr ""
+
+#. module: sftp_backend
+#: model_terms:ir.ui.view,arch_db:sftp_backend.backend_sftp_view_tree
+msgid "Backend Configuration"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model,name:sftp_backend.model_backend_sftp_export
+msgid "Configured SFTP Export"
+msgstr ""
+
+#. module: sftp_backend
+#: code:addons/sftp_backend/models/sftp_adapter.py:44
+#: code:addons/sftp_backend/models/sftp_adapter.py:65
+#, python-format
+msgid "Could not authenticate to sftp server"
+msgstr ""
+
+#. module: sftp_backend
+#: code:addons/sftp_backend/models/sftp_adapter.py:33
+#, python-format
+msgid "Could not load private key from agent"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__create_uid
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__create_date
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__display_name
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__export_ids
+#: model_terms:ir.ui.view,arch_db:sftp_backend.backend_sftp_view_form
+msgid "Exports"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__id
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__id
+msgid "ID"
+msgstr ""
+
+#. module: sftp_backend
+#: selection:backend.sftp,auth_method:0
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__key_file
+msgid "Key File"
+msgstr ""
+
+#. module: sftp_backend
+#: code:addons/sftp_backend/models/backend_sftp.py:54
+#, python-format
+msgid "Key file must be set for this authentication\n"
+"                        method "
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp____last_update
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__write_uid
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__write_date
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__model_id
+msgid "Model"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__name
+msgid "Name"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp_export__path
+msgid "Path"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__port
+msgid "Port"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.actions.act_window,name:sftp_backend.storage_backend_action
+msgid "SFTP Backends"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__host
+msgid "SFTP Host"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.ui.menu,name:sftp_backend.sftp_backend_configuration_menu
+#: model:ir.ui.menu,name:sftp_backend.sftp_configuration_menu
+msgid "SFTP Servers"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model,name:sftp_backend.model_backend_sftp
+msgid "SFTP backend"
+msgstr ""
+
+#. module: sftp_backend
+#: selection:backend.sftp,auth_method:0
+msgid "SSH Agent"
+msgstr ""
+
+#. module: sftp_backend
+#: code:addons/sftp_backend/models/sftp_adapter.py:75
+#, python-format
+msgid "SSH negotiation failed"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,field_description:sftp_backend.field_backend_sftp__username
+msgid "Username"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,help:sftp_backend.field_backend_sftp__username
+msgid "Username to connect to sftp server"
+msgstr ""
+
+#. module: sftp_backend
+#: model_terms:ir.ui.view,arch_db:sftp_backend.backend_sftp_view_form
+msgid "backend_sftp_form"
+msgstr ""
+
+#. module: sftp_backend
+#: model:ir.model.fields,help:sftp_backend.field_backend_sftp_export__model_id
+msgid "only csv.export.* models "
+msgstr ""
+
