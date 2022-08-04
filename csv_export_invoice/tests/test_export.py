@@ -39,7 +39,6 @@ class TestCSVExport(common.SavepointCase):
             {
                 "company_id": company.id,
                 "currency_id": euro.id,
-                # "account_id": account_rcv.id,
                 "invoice_line_ids": [
                     (
                         0,
@@ -67,7 +66,7 @@ class TestCSVExport(common.SavepointCase):
         for row in rows:
             _logger.info(row)
 
-    def test_invoice_csv_export(self):
+    def test_invoice_csv_export_exports_unicode_data(self):
         # coverage
         today = datetime.date.today()
         tomorrow = today + datetime.timedelta(days=1)
@@ -75,6 +74,7 @@ class TestCSVExport(common.SavepointCase):
             {"start_date": today, "end_date": tomorrow}
         )
         cei.action_manual_export_base()
+
         csv_content = base64.decodebytes(cei.data).decode("utf-8")
         header, invoice_line, eol = csv_content.split("\n")
         expected_header = (
@@ -91,5 +91,6 @@ class TestCSVExport(common.SavepointCase):
         self.assertEquals(expected_header, header)
         self.assertTrue(invoice_line.startswith(expected_invoice_line_start))
         self.assertEquals(eol, "")
+
         # needs mocking
         # ice.action_send_to_backend_base()
