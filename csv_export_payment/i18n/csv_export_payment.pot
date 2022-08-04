@@ -1,0 +1,123 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* csv_export_payment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: csv_export_payment
+#: model:ir.actions.server,name:csv_export_payment.csv_export_payment_cron_ir_actions_server
+#: model:ir.cron,cron_name:csv_export_payment.csv_export_payment_cron
+#: model:ir.cron,name:csv_export_payment.csv_export_payment_cron
+msgid "\n"
+"                Generate daily payment csv and send to sftp server\n"
+"            "
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__data
+msgid "CSV"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.actions.act_window,name:csv_export_payment.action_csv_export_payment
+#: model:ir.model,name:csv_export_payment.model_csv_export_payment
+#: model:ir.ui.menu,name:csv_export_payment.menu_csv_export_payment
+#: model_terms:ir.ui.view,arch_db:csv_export_payment.csv_export_payment_view
+msgid "Export Payment CSV"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_account_payment__export_to_sftp
+msgid "Exported to SFTP"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__filename
+msgid "File Name"
+msgstr ""
+
+#. module: csv_export_payment
+#: model_terms:ir.ui.view,arch_db:csv_export_payment.csv_export_payment_view
+msgid "Generate Payment CSV"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__id
+msgid "ID"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model,name:csv_export_payment.model_account_payment
+msgid "Payments"
+msgstr ""
+
+#. module: csv_export_payment
+#: model_terms:ir.ui.view,arch_db:csv_export_payment.csv_export_payment_view
+msgid "Report"
+msgstr ""
+
+#. module: csv_export_payment
+#: model_terms:ir.ui.view,arch_db:csv_export_payment.csv_export_payment_view
+msgid "Send to SFTP Server"
+msgstr ""
+
+#. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: csv_export_payment
+#: model_terms:ir.ui.view,arch_db:csv_export_payment.view_account_payment_form
+msgid "Technical Fields"
+msgstr ""
+
+#. module: csv_export_payment
+#: code:addons/csv_export_payment/models/csv_export_payment.py:45
+#, python-format
+msgid "The csv export can't handle multiple invoice per payment"
+msgstr ""
+
