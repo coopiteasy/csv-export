@@ -35,12 +35,19 @@ class InvoiceCSVExport(models.TransientModel):
     _connector_model = "account.invoice"
     _filename_template = "INV_%Y%m%d_%H%M_%S%f.csv"
 
+
     def get_domain(self):
+        if self.manual_date_selection:    
+            return [
+                ("state", "!=", "draft"),
+                ("state", "!=", "cancel"),
+                ("date", ">=", self.start_date),
+                ("date", "<", self.end_date),
+            ]
         return [
             ("state", "!=", "draft"),
             ("state", "!=", "cancel"),
-            ("date", ">=", self.start_date),
-            ("date", "<", self.end_date),
+            ("export_to_sftp", "=", False),
         ]
 
     def get_headers(self):
