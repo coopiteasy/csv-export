@@ -74,21 +74,21 @@ class PartnerCSVExport(models.TransientModel):
                     ("payment_date", "<", self.end_date),
                 ]
             )
-
-        exported_invoices = self.env["account.invoice"].search(
-            [
-                ("state", "!=", "draft"),
-                ("state", "!=", "cancel"),
-                ("export_to_sftp", "=", False),
-            ]
-        )
-        exported_payments = self.env["account.payment"].search(
-            [
-                ("journal_id.type", "=", "cash"),
-                ("state", "!=", "draft"),
-                ("export_to_sftp", "=", False),
-            ]
-        )
+        else:
+            exported_invoices = self.env["account.invoice"].search(
+                [
+                    ("state", "!=", "draft"),
+                    ("state", "!=", "cancel"),
+                    ("export_to_sftp", "=", False),
+                ]
+            )
+            exported_payments = self.env["account.payment"].search(
+                [
+                    ("journal_id.type", "=", "cash"),
+                    ("state", "!=", "draft"),
+                    ("export_to_sftp", "=", False),
+                ]
+            )
 
         invoice_partners = exported_invoices.mapped("partner_id")
         payment_partners = exported_payments.mapped("partner_id")
