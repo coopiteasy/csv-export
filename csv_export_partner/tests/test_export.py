@@ -19,7 +19,11 @@ class TestPartnerCSVExport(common.TransactionCase):
 
     def test_partner_csv_export(self):
         ice = self.env["csv.export.partner"].create(
-            {"start_date": "2020-06-29", "end_date": "2020-06-30"}
+            {
+                "manual_date_selection": True,
+                "start_date": "2020-06-29",
+                "end_date": "2020-06-30",
+            }
         )
         ice.action_manual_export_base()
         # needs mocking

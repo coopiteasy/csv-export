@@ -75,7 +75,7 @@ class TestCSVExport(common.SavepointCase):
         today = datetime.date.today()
         tomorrow = today + datetime.timedelta(days=1)
         cei = self.env["csv.export.invoice"].create(
-            {"start_date": today, "end_date": tomorrow}
+            {"manual_date_selection": True, "start_date": today, "end_date": tomorrow}
         )
         cei.action_manual_export_base()
 
