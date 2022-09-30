@@ -55,7 +55,7 @@ class PartnerCSVExport(models.TransientModel):
     _filename_template = "CLI_%Y%m%d_%H%M_%S%f.csv"
 
     def get_recordset(self):
-        if self.manual_date_selection:    
+        if self.manual_date_selection:
             # cf csv_export_invoice.py
             exported_invoices = self.env["account.invoice"].search(
                 [

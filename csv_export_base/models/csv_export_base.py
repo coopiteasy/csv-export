@@ -30,7 +30,10 @@ class BaseCSVExport(models.AbstractModel):
     filename = fields.Char(string="File Name", default=_default_filename)
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
-    manual_date_selection = fields.Boolean(string="Select dates manually", help="Export a given date range rather than all the non-exported items")
+    manual_date_selection = fields.Boolean(
+        string="Select dates manually",
+        help="Export a given date range rather than all the non-exported items",
+    )
 
     def get_recordset(self):
         """override this function for more complex record selection"""
