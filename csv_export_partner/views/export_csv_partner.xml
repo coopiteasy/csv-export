@@ -13,8 +13,13 @@
             <field name="arch" type="xml">
                 <form string="Export Partner CSV">
                     <group>
-                        <field name="start_date" />
-                        <field name="end_date" />
+                        <field name="manual_date_selection" />
+                        <field name="start_date" 
+                        attrs="{'invisible': [('manual_date_selection', '=', False)], 
+                        'required': [('manual_date_selection', '=', True)]}" />
+                        <field name="end_date" 
+                        attrs="{'invisible': [('manual_date_selection', '=', False)], 
+                        'required': [('manual_date_selection', '=', True)]}" />
                         <field name="filename" />
                     </group>
                     <separator string="Report" colspan="4" />

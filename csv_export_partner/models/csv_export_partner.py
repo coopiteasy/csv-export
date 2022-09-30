@@ -55,22 +55,38 @@ class PartnerCSVExport(models.TransientModel):
     _filename_template = "CLI_%Y%m%d_%H%M_%S%f.csv"
 
     def get_recordset(self):
-        # cf csv_export_invoice.py
+        if self.manual_date_selection:    
+            # cf csv_export_invoice.py
+            exported_invoices = self.env["account.invoice"].search(
+                [
+                    ("state", "!=", "draft"),
+                    ("state", "!=", "cancel"),
+                    ("date", ">=", self.start_date),
+                    ("date", "<", self.end_date),
+                ]
+            )
+            # cf csv_export_payment.py
+            exported_payments = self.env["account.payment"].search(
+                [
+                    ("journal_id.type", "=", "cash"),
+                    ("state", "!=", "draft"),
+                    ("payment_date", ">=", self.start_date),
+                    ("payment_date", "<", self.end_date),
+                ]
+            )
+
         exported_invoices = self.env["account.invoice"].search(
             [
                 ("state", "!=", "draft"),
                 ("state", "!=", "cancel"),
-                ("date", ">=", self.start_date),
-                ("date", "<", self.end_date),
+                ("export_to_sftp", "=", False),
             ]
         )
-        # cf csv_export_payment.py
         exported_payments = self.env["account.payment"].search(
             [
                 ("journal_id.type", "=", "cash"),
                 ("state", "!=", "draft"),
-                ("payment_date", ">=", self.start_date),
-                ("payment_date", "<", self.end_date),
+                ("export_to_sftp", "=", False),
             ]
         )
 
