@@ -55,40 +55,24 @@ class PartnerCSVExport(models.TransientModel):
     _filename_template = "CLI_%Y%m%d_%H%M_%S%f.csv"
 
     def get_recordset(self):
+        invoice_domain = [("state", "!=", "draft"), ("state", "!=", "cancel")]
+        payment_domain = [("journal_id.type", "=", "cash"), ("state", "!=", "draft")]
         if self.manual_date_selection:
-            # cf csv_export_invoice.py
-            exported_invoices = self.env["account.invoice"].search(
-                [
-                    ("state", "!=", "draft"),
-                    ("state", "!=", "cancel"),
-                    ("date", ">=", self.start_date),
-                    ("date", "<", self.end_date),
-                ]
-            )
-            # cf csv_export_payment.py
-            exported_payments = self.env["account.payment"].search(
-                [
-                    ("journal_id.type", "=", "cash"),
-                    ("state", "!=", "draft"),
-                    ("payment_date", ">=", self.start_date),
-                    ("payment_date", "<", self.end_date),
-                ]
-            )
+            invoice_domain += [
+                ("date", ">=", self.start_date),
+                ("date", "<", self.end_date),
+            ]
+            payment_domain += [
+                ("payment_date", ">=", self.start_date),
+                ("payment_date", "<", self.end_date),
+            ]
         else:
-            exported_invoices = self.env["account.invoice"].search(
-                [
-                    ("state", "!=", "draft"),
-                    ("state", "!=", "cancel"),
-                    ("export_to_sftp", "=", False),
-                ]
-            )
-            exported_payments = self.env["account.payment"].search(
-                [
-                    ("journal_id.type", "=", "cash"),
-                    ("state", "!=", "draft"),
-                    ("export_to_sftp", "=", False),
-                ]
-            )
+            exported_domain = ("export_to_sftp", "=", False)
+            invoice_domain.append(exported_domain)
+            payment_domain.append(exported_domain)
+
+        exported_invoices = self.env["account.invoice"].search(invoice_domain)
+        exported_payments = self.env["account.payment"].search(payment_domain)
 
         invoice_partners = exported_invoices.mapped("partner_id")
         payment_partners = exported_payments.mapped("partner_id")

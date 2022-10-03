@@ -27,18 +27,12 @@ class PartnerCSVExport(models.TransientModel):
     def get_domain(self):
         # est-ce que les paiments peuvent rester en draft plusieurs jours?
         #  => non, les paiements ne passent pas par l'état brouillon.
+        domain = [("state", "!=", "draft"), ("state", "!=", "cancel")]
         if self.manual_date_selection:
-            return [
-                ("journal_id.type", "=", "cash"),
-                ("state", "!=", "draft"),
-                ("create_date", ">=", self.start_date),
-                ("create_date", "<", self.end_date),
-            ]
-        return [
-            ("journal_id.type", "=", "cash"),
-            ("state", "!=", "draft"),
-            ("export_to_sftp", "=", False),
-        ]
+            domain += [("date", ">=", self.start_date), ("date", "<", self.end_date)]
+        else:
+            domain.append(("export_to_sftp", "=", False))
+        return domain
 
     def get_headers(self):
         return HEADERS
