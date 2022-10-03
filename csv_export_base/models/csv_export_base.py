@@ -4,7 +4,7 @@
 
 import base64
 import logging
-from datetime import date, datetime, timedelta
+from datetime import datetime
 from io import BytesIO
 
 import odoo
@@ -139,13 +139,6 @@ class BaseCSVExport(models.AbstractModel):
     @api.model
     def cron_daily_export(self):
         model = self._name
-        end_date = date.today()
-        start_date = end_date - timedelta(days=1)
-        cep = self.env[model].create(
-            {
-                "start_date": fields.Date.to_string(start_date),
-                "end_date": fields.Date.to_string(end_date),
-            }
-        )
+        cep = self.env[model].create({})
         cep.action_manual_export_base()
         cep.action_send_to_backend_base()
