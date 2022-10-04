@@ -100,3 +100,17 @@ class TestCSVExport(common.SavepointCase):
 
         # needs mocking
         # ice.action_send_to_backend_base()
+
+    def test_invoice_csv_export_non_exporter(self):
+        # coverage
+        for invoice in self.env["account.invoice"].search([]):
+            invoice.export_to_sftp = datetime.datetime.now()
+        self.invoice.export_to_sftp = False
+
+        cei = self.env["csv.export.invoice"].create({"manual_date_selection": False})
+        cei.action_manual_export_base()
+
+        csv_content = base64.decodebytes(cei.data).decode("utf-8")
+        lines = csv_content.split("\n")
+        # There should be three lines : header, one invoice line and EOF
+        self.assertEquals(len(lines), 3)
