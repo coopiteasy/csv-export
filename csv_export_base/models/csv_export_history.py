@@ -15,6 +15,6 @@ class CSVExportHistory(models.Model):
     path = fields.Char(string="Path", required=True)
     model = fields.Char(string="model", required=True)
     filename = fields.Char(string="File Name", required=True)
-    start_date = fields.Date(string="Start Date", required=True)
-    end_date = fields.Date(string="End Date", required=True)
+    start_date = fields.Date(string="Start Date")
+    end_date = fields.Date(string="End Date")
     success = fields.Boolean(string="Success", required=False)
