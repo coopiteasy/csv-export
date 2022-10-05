@@ -29,7 +29,10 @@ class PartnerCSVExport(models.TransientModel):
         #  => non, les paiements ne passent pas par l'état brouillon.
         domain = [("state", "!=", "draft"), ("state", "!=", "cancel")]
         if self.manual_date_selection:
-            domain += [("date", ">=", self.start_date), ("date", "<", self.end_date)]
+            domain += [
+                ("create_date", ">=", self.start_date),
+                ("create_date", "<", self.end_date),
+            ]
         else:
             domain.append(("export_to_sftp", "=", False))
         return domain
