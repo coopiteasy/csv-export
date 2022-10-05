@@ -103,6 +103,9 @@ class TestCSVExport(common.SavepointCase):
 
     def test_invoice_csv_export_non_exporter(self):
         # coverage
+
+        # setting all invoices as already exported
+        # because we want to test only the export of the test invoice
         for invoice in self.env["account.invoice"].search([]):
             invoice.export_to_sftp = datetime.datetime.now()
         self.invoice.export_to_sftp = False
