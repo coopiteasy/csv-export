@@ -55,28 +55,22 @@ class PartnerCSVExport(models.TransientModel):
     _filename_template = "CLI_%Y%m%d_%H%M_%S%f.csv"
 
     def get_recordset(self):
+        # we export all the partners:
+        # - that are related to a payment or an invoice
+        # - that are not already exported
+        # Note : updated partners will not be re-exported
+
         invoice_domain = [("state", "!=", "draft"), ("state", "!=", "cancel")]
         payment_domain = [("journal_id.type", "=", "cash"), ("state", "!=", "draft")]
-        if self.manual_date_selection:
-            invoice_domain += [
-                ("date", ">=", self.start_date),
-                ("date", "<", self.end_date),
-            ]
-            payment_domain += [
-                ("payment_date", ">=", self.start_date),
-                ("payment_date", "<", self.end_date),
-            ]
-        else:
-            exported_domain = ("export_to_sftp", "=", False)
-            invoice_domain.append(exported_domain)
-            payment_domain.append(exported_domain)
 
-        exported_invoices = self.env["account.invoice"].search(invoice_domain)
-        exported_payments = self.env["account.payment"].search(payment_domain)
+        invoices = self.env["account.invoice"].search(invoice_domain)
+        payments = self.env["account.payment"].search(payment_domain)
 
-        invoice_partners = exported_invoices.mapped("partner_id")
-        payment_partners = exported_payments.mapped("partner_id")
-        return invoice_partners + payment_partners
+        invoice_partners = invoices.mapped("partner_id")
+        payment_partners = payments.mapped("partner_id")
+        partners = invoice_partners + payment_partners
+        not_exported_partners = partners.search([("export_to_sftp", "=", False)])
+        return not_exported_partners
 
     def get_headers(self):
         return HEADERS
