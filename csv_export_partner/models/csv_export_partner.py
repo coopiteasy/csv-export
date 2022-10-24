@@ -69,7 +69,7 @@ class PartnerCSVExport(models.TransientModel):
         invoice_partners = invoices.mapped("partner_id")
         payment_partners = payments.mapped("partner_id")
         partners = invoice_partners + payment_partners
-        not_exported_partners = partners.search([("export_to_sftp", "=", False)])
+        not_exported_partners = partners.filtered(lambda p: not p.export_to_sftp)
         return not_exported_partners
 
     def get_headers(self):
