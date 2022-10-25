@@ -25,9 +25,9 @@ class PartnerCSVExport(models.TransientModel):
     _filename_template = "CASH_%Y%m%d_%H%M_%S%f.csv"
 
     def get_domain(self):
-        # est-ce que les paiments peuvent rester en draft plusieurs jours?
-        #  => non, les paiements ne passent pas par l'état brouillon.
-        domain = [("state", "!=", "draft"), ("state", "!=", "cancel")]
+        # can payments stay in drafts for several days ?
+        #  => non, payments cannot stay in draft state
+        domain = [("state", "!=", "draft"), ("journal_id.type", "=", "cash")]
         if self.manual_date_selection:
             domain += [
                 ("create_date", ">=", self.start_date),
