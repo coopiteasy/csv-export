@@ -56,6 +56,11 @@ msgid "Export Payment CSV"
 msgstr ""
 
 #. module: csv_export_payment
+#: model:ir.model.fields,help:csv_export_payment.field_csv_export_payment__manual_date_selection
+msgid "Export a given date range rather than all the non-exported items"
+msgstr ""
+
+#. module: csv_export_payment
 #: model:ir.model.fields,field_description:csv_export_payment.field_account_payment__export_to_sftp
 msgid "Exported to SFTP"
 msgstr ""
@@ -101,6 +106,11 @@ msgid "Report"
 msgstr ""
 
 #. module: csv_export_payment
+#: model:ir.model.fields,field_description:csv_export_payment.field_csv_export_payment__manual_date_selection
+msgid "Select dates manually"
+msgstr ""
+
+#. module: csv_export_payment
 #: model_terms:ir.ui.view,arch_db:csv_export_payment.csv_export_payment_view
 msgid "Send to SFTP Server"
 msgstr ""
@@ -116,7 +126,7 @@ msgid "Technical Fields"
 msgstr ""
 
 #. module: csv_export_payment
-#: code:addons/csv_export_payment/models/csv_export_payment.py:45
+#: code:addons/csv_export_payment/models/csv_export_payment.py:48
 #, python-format
 msgid "The csv export can't handle multiple invoice per payment"
 msgstr ""
