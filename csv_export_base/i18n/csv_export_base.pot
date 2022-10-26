@@ -78,6 +78,11 @@ msgid "Export Reference"
 msgstr ""
 
 #. module: csv_export_base
+#: model:ir.model.fields,help:csv_export_base.field_csv_export_base__manual_date_selection
+msgid "Export a given date range rather than all the non-exported items"
+msgstr ""
+
+#. module: csv_export_base
 #: model:ir.model.fields,field_description:csv_export_base.field_csv_export_base__filename
 #: model:ir.model.fields,field_description:csv_export_base.field_csv_export_history__filename
 msgid "File Name"
@@ -106,7 +111,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: csv_export_base
-#: code:addons/csv_export_base/models/csv_export_base.py:101
+#: code:addons/csv_export_base/models/csv_export_base.py:105
 #, python-format
 msgid "No sftp server configured for this export."
 msgstr ""
@@ -114,6 +119,11 @@ msgstr ""
 #. module: csv_export_base
 #: model:ir.model.fields,field_description:csv_export_base.field_csv_export_history__path
 msgid "Path"
+msgstr ""
+
+#. module: csv_export_base
+#: model:ir.model.fields,field_description:csv_export_base.field_csv_export_base__manual_date_selection
+msgid "Select dates manually"
 msgstr ""
 
 #. module: csv_export_base
