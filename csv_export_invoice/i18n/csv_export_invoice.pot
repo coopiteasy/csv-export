@@ -61,6 +61,11 @@ msgid "Export Invoice CSV"
 msgstr ""
 
 #. module: csv_export_invoice
+#: model:ir.model.fields,help:csv_export_invoice.field_csv_export_invoice__manual_date_selection
+msgid "Export a given date range rather than all the non-exported items"
+msgstr ""
+
+#. module: csv_export_invoice
 #: model:ir.model.fields,field_description:csv_export_invoice.field_account_invoice__export_to_sftp
 msgid "Exported to SFTP"
 msgstr ""
@@ -103,6 +108,11 @@ msgstr ""
 #. module: csv_export_invoice
 #: model_terms:ir.ui.view,arch_db:csv_export_invoice.csv_export_invoice_view
 msgid "Report"
+msgstr ""
+
+#. module: csv_export_invoice
+#: model:ir.model.fields,field_description:csv_export_invoice.field_csv_export_invoice__manual_date_selection
+msgid "Select dates manually"
 msgstr ""
 
 #. module: csv_export_invoice
