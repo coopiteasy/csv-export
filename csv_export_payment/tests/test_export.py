@@ -35,7 +35,11 @@ class TestPaymentCSVExport(common.TransactionCase):
 
     def test_invoice_csv_export(self):
         ice = self.env["csv.export.payment"].create(
-            {"start_date": "2020-06-29", "end_date": "2020-06-30"}
+            {
+                "manual_date_selection": True,
+                "start_date": "2020-06-29",
+                "end_date": "2020-06-30",
+            }
         )
         ice.action_manual_export_base()
         # with self.assertRaises(ValidationError):

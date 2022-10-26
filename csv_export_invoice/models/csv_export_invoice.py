@@ -36,12 +36,12 @@ class InvoiceCSVExport(models.TransientModel):
     _filename_template = "INV_%Y%m%d_%H%M_%S%f.csv"
 
     def get_domain(self):
-        return [
-            ("state", "!=", "draft"),
-            ("state", "!=", "cancel"),
-            ("date", ">=", self.start_date),
-            ("date", "<", self.end_date),
-        ]
+        domain = [("state", "!=", "draft"), ("state", "!=", "cancel")]
+        if self.manual_date_selection:
+            domain += [("date", ">=", self.start_date), ("date", "<", self.end_date)]
+        else:
+            domain.append(("export_to_sftp", "=", False))
+        return domain
 
     def get_headers(self):
         return HEADERS
@@ -107,13 +107,17 @@ class InvoiceCSVExport(models.TransientModel):
 
     def get_rows(self, recordset):
         invoices = recordset
-        lines = invoices.mapped("invoice_line_ids").sorted(
-            lambda l: (
-                l.invoice_id.journal_id.code,
-                l.invoice_id.number,
-                l.account_id.code,
-            )
-        )
+
+        def export_order(invoice_line):
+            journal_code = invoice_line.invoice_id.journal_id.code
+            invoice_number = invoice_line.invoice_id.number
+            if invoice_line.account_id:
+                account_code = invoice_line.account_id.code
+            else:
+                account_code = ""
+            return journal_code, invoice_number, account_code
+
+        lines = invoices.mapped("invoice_line_ids").sorted(export_order)
         rows = [self.get_row(line) for line in lines]
         return rows
 

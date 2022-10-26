@@ -4,7 +4,7 @@
 
 import base64
 import logging
-from datetime import date, datetime, timedelta
+from datetime import datetime
 from io import BytesIO
 
 import odoo
@@ -28,8 +28,12 @@ class BaseCSVExport(models.AbstractModel):
 
     data = fields.Binary(string="CSV", readonly=True)
     filename = fields.Char(string="File Name", default=_default_filename)
-    start_date = fields.Date(string="Start Date", required=True)
-    end_date = fields.Date(string="End Date", required=True)
+    start_date = fields.Date(string="Start Date")
+    end_date = fields.Date(string="End Date")
+    manual_date_selection = fields.Boolean(
+        string="Select dates manually",
+        help="Export a given date range rather than all the non-exported items",
+    )
 
     def get_recordset(self):
         """override this function for more complex record selection"""
@@ -135,13 +139,6 @@ class BaseCSVExport(models.AbstractModel):
     @api.model
     def cron_daily_export(self):
         model = self._name
-        end_date = date.today()
-        start_date = end_date - timedelta(days=1)
-        cep = self.env[model].create(
-            {
-                "start_date": fields.Date.to_string(start_date),
-                "end_date": fields.Date.to_string(end_date),
-            }
-        )
+        cep = self.env[model].create({})
         cep.action_manual_export_base()
         cep.action_send_to_backend_base()
