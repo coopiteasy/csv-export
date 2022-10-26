@@ -118,7 +118,10 @@ class InvoiceCSVExport(models.TransientModel):
             return journal_code, invoice_number, account_code
 
         lines = invoices.mapped("invoice_line_ids").sorted(export_order)
-        rows = [self.get_row(line) for line in lines]
+        # remove notes and sections because not associated to an account
+        # therefore it causes errors when importing with accounting software
+        filtered_lines = lines.filtered(lambda l: not l.display_type)
+        rows = [self.get_row(line) for line in filtered_lines]
         return rows
 
     def _get_line_amounts(self, line):
