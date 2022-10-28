@@ -126,16 +126,14 @@ class InvoiceCSVExport(models.TransientModel):
 
     def _get_line_amounts(self, line):
         """
-
         :param line: account.invoice.line record
         :return: a tuple of total amount, base_amount and tax_amount.
           base_amount and tax_amount are rounded to two decimals.
           total_amount is the sum of rounded base_amount and tax_amount
           for lines in the invoice.
         """
+        # copied from src/odoo/addons/account/models/account_invoice.py
         taxes = line.invoice_line_tax_ids
-        # from src/odoo/addons/account/models/account_invoice.py
-        # is there a way not to copy paste this code ?
         price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
         tax_amounts = taxes.compute_all(
             price,
