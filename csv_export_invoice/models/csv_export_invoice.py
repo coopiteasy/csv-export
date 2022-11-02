@@ -62,22 +62,8 @@ class InvoiceCSVExport(models.TransientModel):
             )
 
         tax_code = tax.export_code if tax else ""
-        base_amount, tax_amount = self._get_line_amounts(line)
-        total_amount = self._get_total_amount(invoice)
 
         product_name = line.product_id.with_context(lang="fr_BE").name
-
-        if invoice.type == u"out_refund":
-            origin = self.env["account.invoice"].search(
-                [
-                    ("number", "=", invoice.origin),
-                    ("journal_id", "=", invoice.journal_id.id),
-                ]
-            )
-            if origin:
-                total_amount = -total_amount
-                base_amount = -base_amount
-                tax_amount = -tax_amount
 
         row = (
             invoice.journal_id.code,
@@ -87,11 +73,11 @@ class InvoiceCSVExport(models.TransientModel):
             invoice.partner_id.get_export_reference(),
             reference,
             invoice.origin,
-            str(total_amount),
+            str(invoice.amount_total_signed),
             line.account_id.code,
-            str(base_amount),
+            str(line.price_subtotal_signed),
             tax_code,
-            str(tax_amount),
+            str(line.price_tax),
             product_name,
             invoice.department_id.bob_code,
             invoice.location_id.bob_code,
@@ -123,37 +109,3 @@ class InvoiceCSVExport(models.TransientModel):
         filtered_lines = lines.filtered(lambda l: not l.display_type)
         rows = [self.get_row(line) for line in filtered_lines]
         return rows
-
-    def _get_line_amounts(self, line):
-        """
-        :param line: account.invoice.line record
-        :return: a tuple of total amount, base_amount and tax_amount.
-          base_amount and tax_amount are rounded to two decimals.
-          total_amount is the sum of rounded base_amount and tax_amount
-          for lines in the invoice.
-        """
-        # copied from src/odoo/addons/account/models/account_invoice.py
-        taxes = line.invoice_line_tax_ids
-        price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-        tax_amounts = taxes.compute_all(
-            price,
-            line.invoice_id.currency_id,
-            line.quantity,
-            product=line.product_id,
-            partner=line.invoice_id.partner_id,
-        )
-        total_included = tax_amounts.get("total_included", 0.0)
-        total_excluded = tax_amounts.get("total_excluded", 0.0)
-        tax_amount = total_included - total_excluded
-        return total_excluded, tax_amount
-
-    def _get_total_amount(self, invoice):
-        """
-        We  go trough this function to make sure that
-        Total invoice = sum(base line amount) + sum(tax line amount)
-        for rounded amounts
-        """
-        return sum(
-            sum(self._get_line_amounts(line))  # (base_amount, tax_amount)
-            for line in invoice.invoice_line_ids
-        )
