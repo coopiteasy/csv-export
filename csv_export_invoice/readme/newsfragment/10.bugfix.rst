@@ -1,0 +1,2 @@
+- remove notes and sections from csv invoice export
+- take discount into account when computing the total_amount
