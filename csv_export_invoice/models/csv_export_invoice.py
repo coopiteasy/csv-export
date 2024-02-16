@@ -63,6 +63,10 @@ class InvoiceCSVExport(models.TransientModel):
 
         tax_code = tax.export_code if tax else ""
 
+        price_tax_signed = line.price_tax
+        if invoice.type == "out_refund" or invoice.type == "in_refund":
+            price_tax_signed = -line.price_tax
+
         product_name = line.product_id.with_context(lang="fr_BE").name
 
         row = (
@@ -77,7 +81,7 @@ class InvoiceCSVExport(models.TransientModel):
             line.account_id.code,
             str(line.price_subtotal_signed),
             tax_code,
-            str(line.price_tax),
+            str(price_tax_signed),
             product_name,
             invoice.department_id.bob_code,
             invoice.location_id.bob_code,
